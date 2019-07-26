@@ -1,0 +1,24 @@
+<%= form_for [@category, @exam] do |f| %>
+
+  <%= f.label :category, "Category" %>
+  <%= f.text_field :category, value: @category.name, disabled: true %>
+
+  <%= f.label :name, "Name" %>
+  <%= f.text_field :name %>
+
+  <%= f.label :number_of_questions, "Number of question" %>
+  <%= f.number_field :number_of_questions, min: "1" %>
+
+  <%= f.label :time, "Time" %>
+  <%= f.number_field :time, min: "1" %>
+
+  <div>Questions list</div>
+
+  <%= f.fields_for :questions do |q| %>
+    <%= link_to_add_field( "Add question", f, :questions, class: "add_field ") %>
+    <%#= link_to_add_question("Add question", f, :questions, class: "btn btn-default") %>
+  <% end %>
+  <%#= render "questions/new", locals: {question: @question} %>
+
+  <%= f.submit "Submit" %>
+<% end %>
