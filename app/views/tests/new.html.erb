@@ -1,0 +1,7 @@
+<div>List of exams:</div>
+<%= @exams.each do |exam| %>
+  <div>
+    <%= exam.name %>
+    <span><%= link_to "Do test", tests_path(exam_id: exam.id), method: :post %></span>
+  </div>
+<% end %>

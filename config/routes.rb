@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :categories do
     resources :exams
   end
+  resources :tests
 end

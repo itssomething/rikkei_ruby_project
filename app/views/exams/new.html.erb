@@ -14,11 +14,8 @@
 
   <div>Questions list</div>
 
-  <%= f.fields_for :questions do |q| %>
+  <%= f.fields_for :questions, @questions do |x| %>
     <%= link_to_add_field( "Add question", f, :questions, class: "add_field ") %>
-    <%#= link_to_add_question("Add question", f, :questions, class: "btn btn-default") %>
   <% end %>
-  <%#= render "questions/new", locals: {question: @question} %>
-
   <%= f.submit "Submit" %>
 <% end %>

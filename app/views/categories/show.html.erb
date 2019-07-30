@@ -1,4 +1,7 @@
 <%= link_to  "Create exam", new_category_exam_path(@category.id) %>
 
 <div>Exams list:</div>
-<%#= render partial: "exams/exam", collection: @exams %>
+<%= @exams.each do |exam| %>
+  <%= link_to exam.name, category_exam_path(@category.id, exam.id) %>
+  <br>
+<% end %>

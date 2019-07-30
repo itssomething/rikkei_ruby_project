@@ -1,0 +1,37 @@
+<div>
+  Category: <%= @exam.category.name %>
+</div>
+<div>
+  Name: <%= @exam.name %>
+</div>
+<div>
+  Number of question: <%= @exam.questions.count %>
+</div>
+<%= @questions.each.with_index do |q, index| %>
+  <div><%= index + 1%>. &nbsp<span class="question-name"><%= q.name %></span><div>
+  <div class="answers-list">
+    <% if q.is_multi? %>
+      <%= q.answers.each do |a| %>
+        <div>
+          <%= check_box_tag ("answer_id_#{a.id}").to_sym, a.id %>
+          <% if a.is_correct? %>
+            <strong><%= label_tag ("answer_id_#{a.id}").to_sym, a.content %></strong>
+          <% else %>
+            <%= label_tag ("answer_id_#{a.id}").to_sym, a.content %>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= q.answers.each do |a| %>
+        <div>
+          <%= radio_button_tag ("answer_id_#{a.id}").to_sym, a.id %>
+          <% if a.is_correct? %>
+            <strong><%= label_tag ("answer_id_#{a.id}").to_sym, a.content %></strong>
+          <% else %>
+            <%= label_tag ("answer_id_#{a.id}").to_sym, a.content %>
+          <% end %>
+        </div>
+      <% end %>>
+    <% end %>
+  </div>
+<% end %>
