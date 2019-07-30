@@ -8,6 +8,7 @@ class ExamsController < ApplicationController
 
   def create
     @exam = Exam.new exam_params
+    @exam.save
   end
 
   def show
@@ -23,7 +24,12 @@ class ExamsController < ApplicationController
   end
 
   def exam_params
-    params.require(:exam).permit(:name, questions_attributes: [:name, :_destroy])
-          .merge(category_id: params[:category_id])
+    params.require(:exam).permit(
+      :name, :number_of_questions, :time,
+      :questions_attributes => [
+        :name, :_destroy, :answers_attributes=> [
+          :content, :_destroy
+        ]
+      ]).merge(category_id: params[:category_id])
   end
 end

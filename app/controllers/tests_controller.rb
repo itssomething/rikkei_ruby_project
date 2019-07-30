@@ -29,15 +29,16 @@ class TestsController < ApplicationController
 
   def update
     # k: question id, v: answer id
-    byebug
+  
     @test = Test.find_by id: params[:id]
     @test.assign_attributes status: "tested"
     score = 0
-    answer_params.each do |k,v|
-      update_answer_column @test.id, k, v
-      score += 1 if check_correction? k, v
+    answer_params.each do |key, value|
+      update_answer_column @test.id, key, value.to_s.delete("[] ")
+      score += 1 if check_correction? key, value
     end
     @test.update_attributes status: "tested", score: score
+    redirect_to @test
   end
 
   private
@@ -51,14 +52,12 @@ class TestsController < ApplicationController
   end
 
   def check_correction? k, v
-    answer = Answer.find_by id: v
-    return true if answer.is_correct? && answer.question_id == k
-    false
+    correct = Question.find_by(id: k).correct_answers_ids
+    v.map(&:to_i).sort == correct.sort
   end
 
   def update_answer_column test_id, k, v
-    test_answer = TestAnswer.find_by test_id: test_id
-    test_answer.update_attributes answer: v.to_s,
-      correct_answer: Answer.where(question_id: k, is_correct: true).first
+    test_answer = TestAnswer.find_by test_id: test_id, question_id: k
+    test_answer.update_attributes answer: v.to_s.delete('" ')
   end
 end

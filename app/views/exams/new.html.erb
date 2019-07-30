@@ -15,7 +15,7 @@
   <div>Questions list</div>
 
   <%= f.fields_for :questions, @questions do |x| %>
-    <%= link_to_add_field( "Add question", f, :questions, class: "add_field ") %>
+    <%= link_to_add_field( "Add question", f, :questions, class: "add-question") %>
   <% end %>
   <%= f.submit "Submit" %>
 <% end %>

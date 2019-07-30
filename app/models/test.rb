@@ -12,6 +12,6 @@ class Test < ApplicationRecord
   private
 
   def set_status
-    self.update_attributes status: :not_tested
+    self.assign_attributes status: :not_tested
   end
 end

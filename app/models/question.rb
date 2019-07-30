@@ -13,4 +13,8 @@ class Question < ApplicationRecord
   def is_multi?
     is_multi
   end
+
+  def correct_answers_ids
+    self.answers.where(is_correct: true).pluck :id
+  end
 end

@@ -2,7 +2,11 @@
   <%= f.label :name %>
   <%= f.text_field :name %>
 
-  <%= f.fields_for :answers, @answers do |a| %>
-    <%= link_to_add_field("Add answer", f, :answers, class: "add-answer ") %>
-  <% end %>
+  <div>
+    answer list
+    <div></div>
+    <%= f.fields_for :answers, @answers do |a| %>
+      <%= link_to_add_field("Add answer", f, :answers, class: "add-answer") %>
+    <% end %>
+  </div>
 </li>

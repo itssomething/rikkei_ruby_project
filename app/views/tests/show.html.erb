@@ -1,10 +1,10 @@
 <div>Test of <%= @test.exam.name %></div>
-<div>Time: <%= @test.exam.time %>
-
+<div>Time: <%= @test.exam.time %> </div>
+<div>Status: <%= @test.status.humanize %> </div>
 
 <% if @test.status == "not_tested" %>
   <%= form_for @test, method: :patch do |f| %>
-    <%= @questions.each.with_index(1) do |q, index| %>
+    <% @questions.each.with_index(1) do |q, index| %>
       <div><%= index %>. &nbsp<%= q.name %></div>
       <% if q.is_multi? %>
         <%= q.answers.each do |a| %>
@@ -16,23 +16,34 @@
       <% else %>
         <%= q.answers.each do |a| %>
           <div>
-            <%= radio_button_tag ("question[#{q.id}]").to_sym, a.id %>
+            <%= radio_button_tag ("question[#{q.id}][]").to_sym, a.id, false, {id: "question_#{q.id}_#{a.id}"} %>
             <%= label_tag ("question_#{q.id}_#{a.id}").to_sym, a.content %>
           </div>
         <% end %>
       <% end %>
     <% end %>
 
-    <%= f.submit "Submit" %>
+    <div>
+      <%= f.submit "Submit" %>
+    </div>
   <% end %>
 <% else %>
   <%= @questions.each.with_index(1) do |q, index| %>
     <div><%= index %>. &nbsp<%= q.name %></div>
-    <%= q.answers.each do |a| %>
-      <div>
-        <%= radio_button_tag ("question[#{q.id}]").to_sym, a.id %>
-        <%= label_tag ("question_#{q.id}_#{a.id}").to_sym, a.content %>
-      </div>
+    <% if q.is_multi? %>
+      <%= q.answers.each do |a| %>
+        <div>
+          <%= check_box_tag ("question[#{q.id}][]").to_sym, a.id, false, {id: "question_#{q.id}_#{a.id}", disabled: true} %>
+          <%= label_tag ("question_#{q.id}_#{a.id}").to_sym, a.content %>
+        </div>
+      <% end %>
+    <% else %>
+      <%= q.answers.each do |a| %>
+        <div>
+          <%= radio_button_tag ("question[#{q.id}][]").to_sym, a.id, false, {id: "question_#{q.id}_#{a.id}", disabled: true} %>
+          <%= label_tag ("question_#{q.id}_#{a.id}").to_sym, a.content %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>
