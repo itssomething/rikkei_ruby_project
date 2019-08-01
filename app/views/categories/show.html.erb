@@ -1,7 +1,30 @@
-<%= link_to  "Create exam", new_category_exam_path(@category.id) %>
+<div class="container">
+  <%= link_to  "Create new exam", new_category_exam_path(@category.id), class: "btn" %>
 
-<div>Exams list:</div>
-<%= @exams.each do |exam| %>
-  <%= link_to exam.name, category_exam_path(@category.id, exam.id) %>
-  <br>
-<% end %>
+  <h1 class="text-center">Exams list of category&nbsp<%= @category.name %></h1>
+  <table class="table">
+    <tr>
+      <th>Exam name</th>
+      <th>Number of questions</th>
+      <th>Time</th>
+      <th>Action</th>
+    </tr>
+    <% @exams.each do |exam| %>
+      <tr>
+        <td><%= exam.name %></td>
+        <td><%= exam.number_of_questions %></td>
+        <td><%= exam.time %></td>
+        <td class="action-td">
+          <div>
+            <%= link_to category_exam_path(@category.id, exam.id), class: "btn" do %>
+              <span><%= image_tag "eye.svg", class: "small-icon" %></span>
+              <span class="text-in-btn">View</span>
+            <% end %>
+            <%= link_to "#", class: "btn btn-danger" do %>
+              <span><%= image_tag "delete.svg", class: "small-icon" %></span>
+              <span class="text-in-btn">Delete</span>
+            <% end %>
+          </div>
+        </td>
+    <% end %>
+</div>

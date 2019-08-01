@@ -1,0 +1,17 @@
+<div class="nav">
+  <ul>
+    <% if current_user.admin? %>
+      <li><a href="/admin" class="li-left">Home</a></li>
+    <% else %>
+      <li><a href="/home" class="li-left">Home</a></li>
+    <% end %>
+    <li><a href="#" class="li-left">Tests</a></li>
+    
+    <% if session[:user_id].present? %>
+      <li class="li-right">
+        <%= link_to "Logout", session_path, method: :delete %>
+      </li>
+    <% end %>
+    <li class="li-right"><a href="#"><%= current_user.name %></a></li>
+  </ul>
+</div>

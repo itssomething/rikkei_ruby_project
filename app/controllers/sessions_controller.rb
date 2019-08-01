@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  # include UserConcern
+
   def new
   end
 
@@ -7,7 +9,12 @@ class SessionsController < ApplicationController
 
     if user && user.authenticate(password_param)
       session[:user_id] = user.id
-      redirect_to user
+
+      if current_user.admin?
+        redirect_to admin_path and return
+      else
+        redirect_to user_home_path and return
+      end
     else
       flash[:danger] = "Failed to log in "
       render :new

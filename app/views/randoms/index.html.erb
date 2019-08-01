@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="user-home-grid-container">
+    <div class="category-container">
+      <h2>Categories</h2>
+      <% @categories.each do |c| %>
+        <h3><%= c.name %></h3>
+
+        <div>
+          <% c.exams.each do |e| %>
+            <%= link_to tests_path(exam_id: e.id), class: "fancy-card", method: :post do %>
+              <div class="exam-name"><%= e.name %></div>
+              <div class="fancy-card-overlay">
+                <div class="text">Do test >></div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="leaderboard-container">
+      <h2>Leaderboard</h2>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Score</th>
+          <th>Exam</th>
+        </tr>
+        <% @leaderboard.each do |l| %>
+          <tr>
+            <td><%= l.user.name %></td>
+            <td><%= l.score %></td>
+            <td><%= l.exam.name %></td>
+          </tr>
+        <% end %>
+    </div>
+  </div>
+</div>

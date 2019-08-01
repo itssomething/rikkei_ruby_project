@@ -10,13 +10,11 @@
   </head>
 
   <body>
-    <% if session[:user_id].present? %>
-      <div>Current user: <%= current_user.name %></div>
-
-      <%= link_to "Logout", session_path, method: :delete %>
+    <% if !current_page?(new_session_path) %>
+      <%= render "layouts/header" %>
     <% end %>
 
-    <br>
+
     <% flash.each do |message_type, message| %>
       <div class="alert alert-<%= message_type %>"><%= message %></div>
     <% end %>
