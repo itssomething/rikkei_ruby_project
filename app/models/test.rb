@@ -22,6 +22,7 @@ class Test < ApplicationRecord
     if min.to_s.length == 1
       min = "0" + min.to_s
     end
+    min
   end
 
   def remain_secs

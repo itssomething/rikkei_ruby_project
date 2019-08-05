@@ -689,3 +689,11 @@ input[type="radio"] {
 .radio input[type="radio"]:checked + label::before {
   background-color: #007bff;
 }
+
+.correct-answer {
+  color: green;
+}
+
+.wrong-answer {
+  color: red;
+}
