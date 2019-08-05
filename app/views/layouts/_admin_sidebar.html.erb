@@ -1,0 +1,52 @@
+<div id="mySidebar" class="sidebar">
+  <%= link_to admin_path, class: "nav-link" do %>
+    <div>
+      <%= image_tag "organize.svg" %>
+      <span>Dashboard</span>
+    </div>
+  <% end %>
+
+  <%= link_to '#', class: "nav-link" do %>
+    <div>
+      <%= image_tag "organize.svg" %>
+      <span>Exams management</span>
+    </div>
+  <% end %>
+  <div class="expandable" id="nav">
+    <ul class="child-menu">
+
+      <li class="child-li"><%= link_to "Create exams", new_category_exam_path(1), class: "child-li-a" %></li>
+      <li class="child-li li-with-child"><%= link_to "All exams", exams_path, class: "child-li-a" %></li>
+
+      <ul class="right-side-menu">
+        <li class="">child 1</li>
+        <li class="">child 2</li>
+        <li class="">child 3</li>
+      </ul>
+    </ul>
+  </div>
+
+  <%= link_to '#', class: "nav-link" do %>
+    <div>
+      <%= image_tag "organize.svg" %>
+      <span>Tests management</span>
+    </div>
+  <% end %>
+  <div class="expandable" id="nav">
+    <ul class="child-menu">
+      <li class="child-li"><%= link_to "All tests", tests_path, class: "child-li-a" %></li>
+    </ul>
+  </div>
+
+  <%= link_to '#', class: "nav-link" do %>
+    <div>
+      <%= image_tag "organize.svg" %>
+      <span>Users management</span>
+    </div>
+  <% end %>
+  <div class="expandable" id="nav">
+    <ul class="child-menu">
+      <li class="child-li"><%= link_to "All users", users_path, class: "child-li-a" %></li>
+    </ul>
+  </div>
+</div>

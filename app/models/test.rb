@@ -13,6 +13,25 @@ class Test < ApplicationRecord
     joins(:user).order(score: :desc).includes(:user)
   end)
 
+  def remain_time
+    self.time_start + self.exam.time * 60 - Time.zone.now
+  end
+
+  def remain_mins
+    min = (self.remain_time/60).round(half: :down)
+    if min.to_s.length == 1
+      min = "0" + min.to_s
+    end
+  end
+
+  def remain_secs
+    sec = self.remain_time.modulo(60).round(half: :down)
+    if sec.to_s.length == 1
+      sec = "0" + sec.to_s
+    end
+    sec
+  end
+
   private
 
   def set_status

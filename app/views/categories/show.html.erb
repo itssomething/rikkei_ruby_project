@@ -1,5 +1,6 @@
 <div class="container">
-  <%= link_to  "Create new exam", new_category_exam_path(@category.id), class: "btn" %>
+  <br>
+  <%#= link_to  "Create new exam", new_category_exam_path(@category.id), class: "btn" %>
 
   <h1 class="text-center">Exams list of category&nbsp<%= @category.name %></h1>
   <table class="table">
@@ -26,5 +27,6 @@
             <% end %>
           </div>
         </td>
+      </tr>
     <% end %>
 </div>

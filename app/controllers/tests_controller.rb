@@ -3,13 +3,21 @@ class TestsController < ApplicationController
 
   before_action :check_user_logged_in
 
+  def index
+    if current_user.admin?
+      @tests = Test.all
+    else
+      @tests = current_user.tests
+    end
+  end
+
   def new
     @exams = Exam.all
   end
 
   def create
     @test = Test.create! exam_id: params[:exam_id], user_id: current_user.id,
-      time_start: Time.now
+      time_start: Time.zone.now
     questions_list_ids = Exam.find_by(id: 3).question_ids.sample(20)
     questions_list_ids.each do |question_id|
       @test_answers = @test.test_answers.create! question_id: question_id,
@@ -29,7 +37,7 @@ class TestsController < ApplicationController
 
   def update
     # k: question id, v: answer id
-  
+
     @test = Test.find_by id: params[:id]
     @test.assign_attributes status: "tested"
     score = 0

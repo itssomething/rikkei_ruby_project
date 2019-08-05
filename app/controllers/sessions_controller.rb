@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   # include UserConcern
+  layout "session"
 
   def new
   end

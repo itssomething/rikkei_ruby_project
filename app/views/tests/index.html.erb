@@ -1,0 +1,18 @@
+<div class="container">
+  <h1 class="text-center">All tests</h1>
+  <table class="table">
+    <tr>
+      <th>Exam name</th>
+      <th>Number of questions</th>
+      <th>User</th>
+      <th>Score</th>
+    </tr>
+  <% @tests.each do |test| %>
+    <tr>
+      <td><%= test.exam.name %>
+      <td><%= test.exam.number_of_questions %>
+      <td><%= test.user.name %>
+      <td><%= test.score %>
+    <tr>
+  <% end %>
+</div>

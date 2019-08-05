@@ -1,4 +1,8 @@
 class ExamsController < ApplicationController
+  def index
+    @exams = Exam.all
+  end
+
   def new
     @exam = Exam.new category_id: category_param
     @category = Category.find_by id: category_param
@@ -16,6 +20,13 @@ class ExamsController < ApplicationController
     @questions = @exam.questions.includes(:answers)
   end
 
+  def destroy
+    @exam = Exam.find_by params[:id]
+
+    if @exam.destroy
+      redirect_to exams_path
+    end
+  end
 
   private
 

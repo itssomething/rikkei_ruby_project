@@ -9,4 +9,7 @@ Rails.application.routes.draw do
 
   get "/home", to: "randoms#index", as: "user_home"
   get "/admin", to: "statics#index"
+  get "exams", to: "exams#index"
+
+  root to: "randoms#index"
 end

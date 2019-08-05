@@ -11,10 +11,10 @@ module ApplicationHelper
   end
 
   def current_user
-    User.find_by id: session[:user_id]
+    @current_user = User.find_by id: session[:user_id]
   end
 
-  def sorted_tests_by_score 
+  def sorted_tests_by_score
 
   end
 end

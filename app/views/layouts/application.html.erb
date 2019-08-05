@@ -5,11 +5,19 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
   </head>
 
   <body>
+    <% if current_user.present? %>
+      <% if current_user.admin? %>
+        <%= render "layouts/admin_sidebar" %>
+      <% else %>
+        <%= render "layouts/user_sidebar" %>
+      <% end %>
+    <% end %>
+
     <% if !current_page?(new_session_path) %>
       <%= render "layouts/header" %>
     <% end %>
@@ -18,6 +26,8 @@
     <% flash.each do |message_type, message| %>
       <div class="alert alert-<%= message_type %>"><%= message %></div>
     <% end %>
-    <%= yield %>
+    <div id="main-content">
+      <%= yield %>
+    </div>
   </body>
 </html>

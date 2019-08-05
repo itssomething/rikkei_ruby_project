@@ -1,0 +1,16 @@
+<div class="container">
+  <br>
+  <%#= link_to  "Create new exam", new_category_exam_path(@category.id), class: "btn" %>
+
+  <h1 class="text-center">All exams</h1>
+  <table class="table">
+    <tr>
+      <th>Exam name</th>
+      <th>Number of questions</th>
+      <th>Time</th>
+      <th>Category</th>
+      <th>Action</th>
+    </tr>
+    <%= render @exams %>
+  </table>
+</div>

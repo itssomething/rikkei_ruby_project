@@ -1,0 +1,34 @@
+<div id="mySidebar" class="sidebar">
+  <%= link_to admin_path, class: "nav-link" do %>
+    <div>
+      <%= image_tag "organize.svg" %>
+      <span>Dashboard</span>
+    </div>
+  <% end %>
+
+  <%= link_to '#', class: "nav-link" do %>
+    <div>
+      <%= image_tag "organize.svg" %>
+      <span>Profile</span>
+    </div>
+  <% end %>
+  <div class="expandable" id="nav">
+    <ul class="child-menu">
+      <li class="child-li"><%= link_to "View profile", '#', class: "child-li-a" %></li>
+    </ul>
+  </div>
+
+  <%= link_to '#', class: "nav-link" do %>
+    <div>
+      <%= image_tag "organize.svg" %>
+      <span>Tests management</span>
+    </div>
+  <% end %>
+  <div class="expandable" id="nav">
+    <ul class="child-menu">
+      <li class="child-li"><%= link_to "Do test", admin_path, class: "child-li-a" %></li>
+      <li class="child-li"><%= link_to "Pending tests", '#', class: "child-li-a" %></li>
+      <li class="child-li"><%= link_to "Finished tests", '#', class: "child-li-a" %></li>
+    </ul>
+  </div>
+</div>
