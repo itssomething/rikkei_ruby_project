@@ -8,6 +8,7 @@
 </div>
 
 <% if @test.status == "not_tested" %>
+  <%#= render partial: "tests/test" %>
   <div class="clock-container">
     <span id="hour"><%= @test.remain_mins %></span>
     <span class="">:</span>
@@ -16,75 +17,94 @@
 <% end %>
 
 <div class="test-container">
+  <%#  NOT TESTED STATUS %>
   <% if @test.status == "not_tested" %>
     <%= form_for @test, method: :patch do |f| %>
       <% @questions.each.with_index(1) do |q, index| %>
-        <div><%= index %>. &nbsp<%= q.name %></div>
-        <% if q.is_multi? %>
-          <% q.answers.each do |a| %>
-            <div class="checkbox">
-              <%= check_box_tag ("question[#{q.id}][]").to_sym, a.id, false, {id: "question_#{q.id}_#{a.id}"} %>
-              <%= label_tag ("question_#{q.id}_#{a.id}").to_sym, a.content, class: "label" %>
-            </div>
+        <div class="question-area">
+
+          <div><%= index %>. &nbsp<%= q.name %></div>
+          <% if q.is_multi? %>
+            <% q.answers.each do |a| %>
+              <div class="checkbox">
+                <%= check_box_tag ("question[#{q.id}][]").to_sym, a.id, false, {id: "question_#{q.id}_#{a.id}"} %>
+                <%= label_tag ("question_#{q.id}_#{a.id}").to_sym, a.content, class: "label" %>
+              </div>
+            <% end %>
+          <% else %>
+            <% q.answers.each do |a| %>
+              <div class="radio">
+                <%= radio_button_tag ("question[#{q.id}][]").to_sym, a.id, false, {id: "question_#{q.id}_#{a.id}"} %>
+                <%= label_tag ("question_#{q.id}_#{a.id}").to_sym, a.content, class: "label" %>
+              </div>
+            <% end %>
           <% end %>
-        <% else %>
-          <% q.answers.each do |a| %>
-            <div class="radio">
-              <%= radio_button_tag ("question[#{q.id}][]").to_sym, a.id, false, {id: "question_#{q.id}_#{a.id}"} %>
-              <%= label_tag ("question_#{q.id}_#{a.id}").to_sym, a.content, class: "label" %>
-            </div>
-          <% end %>
-        <% end %>
+        </div>
       <% end %>
 
       <div>
-        <%= f.submit "Submit", id: "test-submit-btn" %>
+        <%= f.submit "Submit", id: "test-submit-btn", class: "sign-in-btn" %>
       </div>
     <% end %>
+
+  <%# TESTED STATUS %>
   <% else %>
-    <% @test_answers.each.with_index(1) do |ta, index| %>
-      <div><%= index %>. &nbsp<%= ta.question.name %></div>
+    <% @test_answers.includes(:question).each.with_index(1) do |ta, index| %>
+      <div class="question-area">
+        <div><%= index %>. &nbsp<%= ta.question.name %></div>
 
-      <% if ta.question.is_multi? %>
-        <% ta.question.answers.each do |a| %>
-          <div class="checkbox">
-            <%= check_box_tag ("question[#{ta.question.id}][]").to_sym, a.id, false, {id: "question_#{ta.question.id}_#{a.id}", disabled: true} %>
-            <% if ta.answer == ta.correct_answer %>
-              <% if ta.answer.include?(a.id.to_s) %>
-                <strong class="correct-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %></strong>
+        <% if ta.question.is_multi? %>
+          <% ta.question.answers.each do |a| %>
+            <div class="checkbox">
+              <%= check_box_tag ("question[#{ta.question.id}][]").to_sym, a.id, false, {id: "question_#{ta.question.id}_#{a.id}", disabled: true} %>
+              <% if ta.answer == ta.correct_answer %>
+                <% if ta.answer.include?(a.id.to_s) %>
+                  <strong class="correct-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %></strong>
+                <% else %>
+                  <%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %>
+                <% end %>
               <% else %>
-                <%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %>
+                <% if ta.answer.include?(a.id.to_s) %>
+                  <strong class="wrong-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %></strong>
+                <% else %>
+                  <%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %>
+                <% end %>
               <% end %>
-            <% else %>
-              <% if ta.answer.include?(a.id.to_s) %>
-                <strong class="wrong-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %></strong>
+            </div>
+          <% end %>
+        <% else %>
+          <% ta.question.answers.each do |a| %>
+            <div class="radio">
+              <%= radio_button_tag ("question[#{ta.question.id}][]").to_sym, a.id, false, {id: "question_#{ta.question.id}_#{a.id}", disabled: true} %>
+              <%# IF ANSWER IS CORRECT %>
+              <% if ta.answer == ta.correct_answer %>
+                <% if ta.answer.include?(a.id.to_s) %>
+                  <strong class="correct-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %></strong>
+                <% else %>
+                  <%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %>
+                <% end %>
+
+              <%# IF ANSWER IS NOT CORRECT %>
               <% else %>
-                <%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %>
+                <% if ta.answer.include?(a.id.to_s) %>
+                  <strong class="wrong-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %></strong>
+                <% else %>
+                  <%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %>
+                <% end %>
               <% end %>
+            </div>
+          <% end %>
+        <% end %>
+
+        <% if ta.answer != ta.correct_answer %>
+          <div class="solution">
+            <span>Correct answer:</span>
+            <% show_correct_answers(ta).each do |a| %>
+              <%= a %>
             <% end %>
           </div>
         <% end %>
-      <% else %>
-        <% ta.question.answers.each.each do |a| %>
-          <div class="radio">
-            <%= radio_button_tag ("question[#{ta.question.id}][]").to_sym, a.id, false, {id: "question_#{ta.question.id}_#{a.id}", disabled: true} %>
-            <% if ta.answer == ta.correct_answer %>
-              <% if ta.answer.include?(a.id.to_s) %>
-                <strong class="correct-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %></strong>
-              <% else %>
-                <%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %>
-              <% end %>
-            <% else %>
-              <% if ta.answer.include?(a.id.to_s) %>
-                <strong class="wrong-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %></strong>
-              <% else %>
-                <%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %>
-              <% end %>
-            <% end %>
-          </div>
-        <% end %>
-      <% end %>
-
+      </div>
     <% end %>
   <% end %>
 </div>

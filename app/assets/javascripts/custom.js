@@ -32,58 +32,63 @@ window.onload = function(){
     var mainContent = document.getElementById('main-content');
 
 		if(navBarStatus=="open"){
-			sideBar.style.width = '0px';
-			topBar.style.marginLeft = '0';
+      // sideBar.style.width = '0px';
+      sideBar.classList.add("collapsed");
+			topBar.style.marginLeft = '60px';
       navBarStatus = 'close';
-      mainContent.style.marginLeft = '0';
+      mainContent.style.marginLeft = '60px';
 		} else {
-			sideBar.style.width = '250px';
+      // sideBar.style.width = '250px';
+      sideBar.classList.remove("collapsed");
 			topBar.style.marginLeft = '250px';
       navBarStatus = 'open';
       mainContent.style.marginLeft = '250px';
 		}
   });
 
-  var hourEle = document.getElementById('hour');
-	var minEle = document.getElementById('min');
-  var myInterval;
+  if(window.location.href.includes('test')){
+    var hourEle = document.getElementById('hour');
+    var minEle = document.getElementById('min');
+    var myInterval;
 
-	setTimeout(function(){
-		var myInterval = setInterval(function(){
-			var min = minEle.innerHTML;
-      var newMin = min - 1;
+    setTimeout(function(){
+      var myInterval = setInterval(function(){
+        var min = minEle.innerHTML;
+        var newMin = min - 1;
 
-      // if(min == "00" && hourEle.innerHTML == "01"){
-      //   clearInterval(myInterval);
-      // }
-			if(newMin < 0 ){
-        newMin = 59;
-        hourEle.innerHTML = hourEle.innerHTML - 1;
+        // if(min == "00" && hourEle.innerHTML == "01"){
+        //   clearInterval(myInterval);
+        // }
+        if(newMin < 0 ){
+          newMin = 59;
+          hourEle.innerHTML = hourEle.innerHTML - 1;
 
-        if(hourEle.innerHTML.length == 1){
-          hourEle.innerHTML = "0" + hourEle.innerHTML;
-        } else {
+          if(hourEle.innerHTML.length == 1){
+            hourEle.innerHTML = "0" + hourEle.innerHTML;
+          } else {
 
+          }
         }
+
+        if(newMin.toString().length == 1){
+          newMin = "0" + newMin.toString()
+        }
+        minEle.innerHTML = newMin;
+      }, 1000);
+    }, 1000);
+
+    setInterval(function(){
+      console.log("a");
+      var hour = hourEle.innerHTML;
+      var min = minEle.innerHTML
+
+      if(hour.toString() == "00" && min.toString() == "00"){
+        // clearInterval(myInterval);
+        var ele = document.getElementsByClassName('edit_test');
+        var testForm = ele[0];
+        testForm.submit();
       }
+    }, 500);
+  }
 
-			if(newMin.toString().length == 1){
-				newMin = "0" + newMin.toString()
-			}
-			minEle.innerHTML = newMin;
-		}, 1000);
-  }, 1000);
-
-  setInterval(function(){
-    console.log("a");
-    var hour = hourEle.innerHTML;
-    var min = minEle.innerHTML
-
-    if(hour.toString() == "00" && min.toString() == "00"){
-      // clearInterval(myInterval);
-      var ele = document.getElementsByClassName('edit_test');
-      var testForm = ele[0];
-      testForm.submit();
-    }
-  }, 500);
 }

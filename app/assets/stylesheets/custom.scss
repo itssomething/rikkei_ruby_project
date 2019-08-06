@@ -697,3 +697,45 @@ input[type="radio"] {
 .wrong-answer {
   color: red;
 }
+
+.solution {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.question-area {
+  margin: 20px 0 20px 20px;
+}
+
+.edit_test {
+  padding-bottom: 75px;
+  margin-right: 111px;
+}
+
+.sidebar.collapsed {
+  // transform: rotate(90deg);
+  width: 60px;
+
+  & span {
+    display: none;
+  }
+
+  & .nav-link:hover {
+    width: 250px;
+  }
+
+  & .nav-link:hover span {
+    display: block;
+    position: relative;
+    // top: 30px;
+    z-index: 3;
+  }
+
+  & .nav-link + .expandable .child-li-a {
+    display: none;
+  }
+
+  & .nav-link:hover + .expandable .child-li-a {
+    display: block;
+  }
+}

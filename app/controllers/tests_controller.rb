@@ -28,7 +28,7 @@ class TestsController < ApplicationController
 
   def show
     @test = Test.find_by(id: params[:id])
-    @test_answers = @test.test_answers
+    @test_answers = @test.test_answers.includes(:question)
     @questions = @test.questions.includes(:answers)
   end
 

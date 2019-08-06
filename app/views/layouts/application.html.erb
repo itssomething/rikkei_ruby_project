@@ -10,6 +10,20 @@
   </head>
 
   <body>
+
+    <% if !current_page?(new_session_path) %>
+      <%= render "layouts/header" %>
+    <% end %>
+
+    <% flash.each do |message_type, message| %>
+      <div class="alert alert-<%= message_type %>"><%= message %></div>
+    <% end %>
+
+
+    <div id="main-content">
+      <%= yield %>
+    </div>
+    
     <% if current_user.present? %>
       <% if current_user.admin? %>
         <%= render "layouts/admin_sidebar" %>
@@ -18,16 +32,9 @@
       <% end %>
     <% end %>
 
-    <% if !current_page?(new_session_path) %>
-      <%= render "layouts/header" %>
-    <% end %>
 
 
-    <% flash.each do |message_type, message| %>
-      <div class="alert alert-<%= message_type %>"><%= message %></div>
-    <% end %>
-    <div id="main-content">
-      <%= yield %>
-    </div>
+
+
   </body>
 </html>
