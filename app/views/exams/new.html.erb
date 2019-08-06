@@ -1,21 +1,38 @@
-<%= form_for [@category, @exam] do |f| %>
+<div class="exam-container">
+  <%= form_for [@category, @exam] do |f| %>
+    <h3> General information </h3>
 
-  <%= f.label :category, "Category" %>
-  <%= f.text_field :category, value: @category.name, disabled: true %>
+    <div class="form-group">
+      <%= f.label :category, "Category" %>
+      <%= f.text_field :category, value: @category.name, disabled: true, class: "form-control" %>
+    </div>
 
-  <%= f.label :name, "Name" %>
-  <%= f.text_field :name %>
+    <div class="form-group">
+      <%= f.label :name, "Name" %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
 
-  <%= f.label :number_of_questions, "Number of question" %>
-  <%= f.number_field :number_of_questions, min: "1" %>
+    <div class="form-group">
+      <%= f.label :number_of_questions, "Number of question" %>
+      <%= f.number_field :number_of_questions, min: "1", class: "form-control" %>
+    </div>
 
-  <%= f.label :time, "Time" %>
-  <%= f.number_field :time, min: "1" %>
+    <div class="form-group">
+      <%= f.label :time, "Time (min)" %>
+      <%= f.number_field :time, min: "1", class: "form-control" %>
+    </div>
 
-  <div>Questions list</div>
+    <h3>
+      Questions list
+    </h3>
+    <div></div>
 
-  <%= f.fields_for :questions, @questions do |x| %>
-    <%= link_to_add_field( "Add question", f, :questions, class: "add-question") %>
+    <%= f.fields_for :questions, @questions do |x| %>
+      <%= link_to_add_field( "Add question", f, :questions, class: "add-question") %>
+    <% end %>
+
+    <div>
+      <%= f.submit "Submit", class: "sign-in-btn" %>
+    </div>
   <% end %>
-  <%= f.submit "Submit" %>
-<% end %>
+</div>

@@ -1,4 +1,8 @@
-<li>
+<div class="answer-li">
   <%= f.label :content %>
-  <%= f.text_field :content %>
-</li>
+  <%= f.text_field :content, class: "small-field width-80-percent" %>
+  <div class="checkbox" style="float: right">
+    <%= f.check_box :is_correct %>
+    <%= f.label :is_correct, "Is correct?", class: "label is-correct rem-09-label" %>
+  </div>
+</div>

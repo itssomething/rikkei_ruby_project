@@ -1,12 +1,14 @@
-<li>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<div class="question-field">
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "small-field" %>
 
-  <div>
-    answer list
-    <div></div>
-    <%= f.fields_for :answers, @answers do |a| %>
-      <%= link_to_add_field("Add answer", f, :answers, class: "add-answer") %>
-    <% end %>
+    <div>
+      <h4>Answers list</h4>
+      <div></div>
+      <%= f.fields_for :answers, @answers do |a| %>
+        <%= link_to_add_field("Add answer", f, :answers, class: "add-answer btn") %>
+      <% end %>
+    </div>
   </div>
-</li>
+</div>

@@ -1,6 +1,7 @@
-$(document).on("turbolinks:load", function() {
+$(document).ready(function() {
 
   $("form").on("click", ".add-question", function(event) {
+    console.log("c");
     pointer = $(this);
     append_field(pointer);
     event.preventDefault()

@@ -1,4 +1,6 @@
 class Question < ApplicationRecord
+  before_commit :set_is_multi
+
   belongs_to :exam
 
   has_many :answers, dependent: :nullify
@@ -16,5 +18,11 @@ class Question < ApplicationRecord
 
   def correct_answers_ids
     self.answers.where(is_correct: true).pluck :id
+  end
+
+  private
+
+  def set_is_multi
+    self.update_attributes is_multi: (self.answers.where(is_correct: true).count > 1)
   end
 end

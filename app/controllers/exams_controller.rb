@@ -11,6 +11,7 @@ class ExamsController < ApplicationController
   end
 
   def create
+    byebug
     @exam = Exam.new exam_params
     @exam.save
   end
