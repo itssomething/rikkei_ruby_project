@@ -27,9 +27,12 @@
     </h3>
     <div></div>
 
-    <%#= f.fields_for :questions do |x| %>
-    <%# end %>
-    <%= link_to_add_field( "Add question", f, :questions, class: "add-question") %>
+
+    <%= f.fields_for :questions do |x| %>
+      <%= render  "question_fields", f: x %>
+    <% end %>
+      <%= link_to_add_field( "Add question", f, :questions, class: "add-question") %>
+
 
     <div>
       <%= f.submit "Submit", class: "sign-in-btn" %>

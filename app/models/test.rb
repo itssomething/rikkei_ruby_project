@@ -13,6 +13,12 @@ class Test < ApplicationRecord
     joins(:user).order(score: :desc).includes(:user)
   end)
 
+  scope :view_by_status, (lambda do |status|
+    return if status.blank?
+    
+    where(status: status)
+  end)
+
   def remain_time
     self.time_start + self.exam.time * 60 - Time.zone.now
   end
@@ -31,6 +37,10 @@ class Test < ApplicationRecord
       sec = "0" + sec.to_s
     end
     sec
+  end
+
+  def time_remain_positive?
+    remain_time > 0
   end
 
   private

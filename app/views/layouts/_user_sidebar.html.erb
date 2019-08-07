@@ -14,7 +14,7 @@
   <% end %>
   <div class="expandable" id="nav">
     <ul class="child-menu">
-      <li class="child-li"><%= link_to "View profile", '#', class: "child-li-a" %></li>
+      <li class="child-li"><%= link_to "View profile", user_path(current_user), class: "child-li-a" %></li>
     </ul>
   </div>
 
@@ -27,8 +27,8 @@
   <div class="expandable" id="nav">
     <ul class="child-menu">
       <li class="child-li"><%= link_to "Do test", admin_path, class: "child-li-a" %></li>
-      <li class="child-li"><%= link_to "Pending tests", '#', class: "child-li-a" %></li>
-      <li class="child-li"><%= link_to "Finished tests", '#', class: "child-li-a" %></li>
+      <li class="child-li"><%= link_to "Pending tests", tests_path(status: "testing"), class: "child-li-a" %></li>
+      <li class="child-li"><%= link_to "Finished tests", tests_path(status: "tested"), class: "child-li-a" %></li>
     </ul>
   </div>
 </div>

@@ -1,6 +1,6 @@
-<tr>
+<tr id="exam-<%= exam.id %>">
   <td><%= exam.name %></td>
-  <td><%= exam.number_of_questions %></td>
+  <td><%= questions_count[exam.id] %></td>
   <td><%= exam.time %></td>
   <td><%= exam.category.name %></td>
   <td class="action-td">
@@ -9,7 +9,7 @@
         <span><%= image_tag "eye.svg", class: "small-icon" %></span>
         <span class="text-in-btn">View</span>
       <% end %>
-      <%= link_to category_exam_path(exam.category.id, exam.id), method: :delete, class: "btn btn-danger" do %>
+      <%= link_to category_exam_path(exam.category.id, exam.id), method: :delete, remote: true, class: "btn btn-danger" do %>
         <span><%= image_tag "delete.svg", class: "small-icon" %></span>
         <span class="text-in-btn">Delete</span>
       <% end %>

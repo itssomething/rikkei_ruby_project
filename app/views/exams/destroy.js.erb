@@ -1,0 +1,10 @@
+var nextEle = $('#exam-<%= @exam.id %>').next();
+$('#exam-<%= @exam.id %>').hide('slow', function(){
+  $('#exam-<%= @exam.id %>').remove();
+  $('#popup-placeholder').html('<%= j render "layouts/popup", message: flash[flash.keys.first.to_sym] %>');
+  $('#popup').addClass('pop-up-animation');
+  setTimeout(function (){
+    $('#popup').removeClass('pop-up-animation');
+    $('#popup-placeholder').html('');
+  }, 2500)
+});

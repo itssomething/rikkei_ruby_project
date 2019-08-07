@@ -1,0 +1,19 @@
+<h1 class="text-center">In progress tests</h1>
+  <table class="table">
+    <tr>
+      <th>Exam name</th>
+      <th>Number of questions</th>
+      <th>User</th>
+      <th>Time remaining</th>
+      <th>Action</th>
+    </tr>
+  <% tests.each do |test| %>
+    <tr>
+      <td><%= test.exam.name %>
+      <td><%= test.questions.count %>
+      <td><%= test.user.name %>
+      <td><%= Time.at(test.remain_time * 60).utc.strftime("%H:%M") %>
+      <td><%= link_to "Do test", test_path(test) %></td>
+    <tr>
+  <% end %>
+</div>

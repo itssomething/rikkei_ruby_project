@@ -6,9 +6,11 @@
     <div>
       <h4>Answers list</h4>
       <div></div>
-      <%= f.fields_for :answers, @answers do |a| %>
-        <%= link_to_add_field("Add answer", f, :answers, class: "add-answer btn") %>
+      <%= f.fields_for :answers do |a| %>
+      <%= render  "answer_fields", f: a %>
       <% end %>
+        <%= link_to_add_field("Add answer", f, :answers, class: "add-answer btn") %>
+
     </div>
   </div>
 </div>

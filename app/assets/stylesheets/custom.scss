@@ -21,6 +21,7 @@ body {
 .container {
   max-width: 1140px;
   margin: auto auto;
+  transition: 0.5s;
 }
 
 .form-control {
@@ -228,8 +229,8 @@ li a:hover {
 
 .btn {
   background-color: #007bff;
-  border: 1px solid transparent;
-  border-color: #007bff;
+  // border: 1px solid transparent;
+  // border-color: #007bff;
   color: #fff;
   border-radius: 4px;
   padding: 8px 17px;
@@ -334,7 +335,8 @@ td {
 .user-home-grid-container {
   display: grid;
   grid-column-gap: 30px;
-  grid-template-columns: auto auto auto auto;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: auto-fit;
   margin-top: 3%;
 }
 
@@ -343,12 +345,27 @@ td {
   grid-column-start: 1;
   grid-column-end: 4;
   border-right: 2px solid grey;
+
+  & h3 {
+    border-bottom: 3px solid #f85a40;
+    padding-bottom: 0.3em;
+    width: 80%;
+
+  }
 }
 
 .leaderboard-container {
   display: inline-grid;
   grid-column-start: 4;
   grid-column-end: 5;
+  position: relative;
+  width: 100%;
+
+  & table {
+    position: absolute;
+    top: 4rem;
+    border-collapse: collapse;
+  }
 }
 
 h2 {
@@ -366,7 +383,7 @@ h3 {
   margin: 10px;
   background-color: #007bff;
   box-sizing: border-box;
-  padding: 40px 30px;
+  padding: 27px 30px;
   font-weight: bold;
   border-radius: 8px;
   text-decoration: none;
@@ -416,10 +433,11 @@ h3 {
 	top: 0;
 	left: 0;
 	background-color: #0a8ea0;
-	overflow-x: hidden;
+	overflow-x: visible;
 	padding-top: 60px;
 	transition: 0.5s;
-	overflow-y: hidden;
+  overflow-y: hidden;
+  // overflow: visible;
 }
 
 .sidebar > a {
@@ -487,6 +505,7 @@ ul {
   padding-top: 10px;
   padding-bottom: 10px;
   font-weight: bold;
+  position: relative;
 }
 
 .nav-link:hover, .child-li:hover {
@@ -736,9 +755,9 @@ input[type="radio"] {
   }
 
   & .nav-link:hover span {
-    display: block;
-    position: relative;
-    // top: 30px;
+    display: flex;
+    position: absolute;
+    top: 0px;
   }
 
   & .nav-link + .expandable .child-li-a {
@@ -831,4 +850,41 @@ input[type="radio"] {
 
 .rem-09-label {
   font-size: 0.9rem;
+}
+
+.exam-show-container {
+  width: 70%;
+  margin: 3% auto;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  border: 1px solid #afafaf;
+  border-radius: 0.3rem;
+  box-sizing: border-box;
+  padding-left: 3%;
+}
+
+.paginate {
+  margin: 2rem;
+  text-align: center;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.page.current a {
+  background-color: #0a8ea0;
+  color: white;
+}
+
+.page a:hover, .first a:hover,
+.prev a:hover, .last a:hover {
+  background-color: #30c39e;
+  color: white;
 }

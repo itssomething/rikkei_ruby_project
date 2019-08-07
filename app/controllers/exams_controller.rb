@@ -1,6 +1,7 @@
 class ExamsController < ApplicationController
   def index
-    @exams = Exam.all
+    @exams = Exam.all.includes(:category)
+    @questions_count = Exam.questions_count
   end
 
   def new
@@ -21,11 +22,26 @@ class ExamsController < ApplicationController
     @questions = @exam.questions.includes(:answers)
   end
 
+  def edit
+    @exam = Exam.find_by id: params[:id]
+    @category = Category.find_by id: category_param
+    @questions = @exam.questions
+
+  end
+
+  def update
+    @exam = Exam.find_by id: params[:id]
+    redirect_to @exam
+  end
+
   def destroy
-    @exam = Exam.find_by params[:id]
+    @exam = Exam.find_by id: params[:id]
 
     if @exam.destroy
-      redirect_to exams_path
+      flash[:success] = "Exam deleted"
+      respond_to do |format|
+        format.js
+      end
     end
   end
 
@@ -39,8 +55,8 @@ class ExamsController < ApplicationController
     params.require(:exam).permit(
       :name, :number_of_questions, :time,
       :questions_attributes => [
-        :name, :_destroy, :answers_attributes=> [
-          :content, :_destroy
+        :name, :_destroy, :answers_attributes => [
+          :content, :is_correct, :_destroy
         ]
       ]).merge(category_id: params[:category_id])
   end

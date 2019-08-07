@@ -3,6 +3,11 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def index
+    @users = User.includes(:tests).page_view(params[:page])
+    @tests_count = User.tests_count
+  end
+
   def create
     @user = User.new user_params
 
@@ -18,7 +23,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by id: params[:id]
   end
-  
+
   private
 
   def user_params

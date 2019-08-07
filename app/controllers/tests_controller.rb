@@ -7,7 +7,7 @@ class TestsController < ApplicationController
     if current_user.admin?
       @tests = Test.all
     else
-      @tests = current_user.tests
+      @tests = current_user.tests.view_by_status(param_status)
     end
   end
 
@@ -41,6 +41,8 @@ class TestsController < ApplicationController
     @test = Test.find_by id: params[:id]
     @test.assign_attributes status: "tested"
     score = 0
+
+    # if answer_params.
     answer_params.each do |key, value|
       update_answer_column @test.id, key, value.to_s.delete("[] ")
       score += 1 if check_correction? key, value
@@ -56,7 +58,11 @@ class TestsController < ApplicationController
   end
 
   def answer_params
-    params.require(:question).permit!
+    if params[:question].present?
+      params.require(:question).permit!
+    else
+      {}
+    end
   end
 
   def check_correction? k, v
@@ -67,5 +73,9 @@ class TestsController < ApplicationController
   def update_answer_column test_id, k, v
     test_answer = TestAnswer.find_by test_id: test_id, question_id: k
     test_answer.update_attributes answer: v.to_s.delete('" ')
+  end
+
+  def param_status
+    params[:status]
   end
 end

@@ -1,0 +1,19 @@
+<h1 class="text-center">Finished tests</h1>
+  <table class="table">
+    <tr>
+      <th>Exam name</th>
+      <th>Number of questions</th>
+      <th>User</th>
+      <th>Score</th>
+      <th>Action</th>
+    </tr>
+  <% tests.each do |test| %>
+    <tr>
+      <td><%= test.exam.name %>
+      <td><%= test.questions.count %>
+      <td><%= test.user.name %>
+      <td><%= test.score %>
+      <td><%= link_to "View", test_path(test) %></td>
+    <tr>
+  <% end %>
+</div>
