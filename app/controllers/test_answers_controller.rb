@@ -20,20 +20,16 @@ class TestAnswersController < ApplicationController
   private
 
   def processed_answer
-    if params_answers_class == Array
+    if params[:answers].class == Array
       params_answers.map(&:to_i).to_s.delete('[]"')
-    elsif params_answers_class == String
-      params_answers.to_s.delete('[]"')
-    elsif params_answers.blank?
+    elsif params[:answers].class == String
+      params[:answers].to_s.delete('[]"')
+    elsif params[:answers].blank?
       ""
     end
   end
 
   def params_answers
     params[:answers]
-  end
-
-  def params_answers_class
-    params_answers.class
   end
 end

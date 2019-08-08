@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.includes(:tests).page_view(params[:page])
+    @users = User.includes(:tests).page(params[:page]).per(13)
     @tests_count = User.tests_count
   end
 

@@ -5,8 +5,8 @@ class ExamsController < ApplicationController
   end
 
   def new
-    @exam = Exam.new category_id: category_param
-    @category = Category.find_by id: category_param
+    @exam = Exam.new category_id: params[:category_id]
+    @category = Category.find_by id: params[:category_id]
     @questions = @exam.questions.build
     @answers = @questions.answers.build
   end
@@ -24,7 +24,7 @@ class ExamsController < ApplicationController
 
   def edit
     @exam = Exam.find_by id: params[:id]
-    @category = Category.find_by id: category_param
+    @category = Category.find_by id: params[:category_id]
     @questions = @exam.questions
 
   end
