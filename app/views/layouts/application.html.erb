@@ -15,12 +15,11 @@
       <%= render "layouts/header" %>
     <% end %>
 
-    <% flash.each do |message_type, message| %>
-      <div class="alert alert-<%= message_type %>"><%= message %></div>
-    <% end %>
-
     <div id="main-content" data-url="<%= request.base_url %>">
-
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+      
       <div id="popup-placeholder"></div>
 
       <%= yield %>
