@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   end
   resources :tests
   resources :randoms, except: [:index]
+  resources :test_answers, only: [:update]
 
   get "/home", to: "randoms#index", as: "user_home"
   get "/admin", to: "statics#index"

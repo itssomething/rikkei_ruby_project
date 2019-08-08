@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
   $("form").on("click", ".add-question", function(event) {
-    console.log("c");
     pointer = $(this);
     append_field(pointer);
     event.preventDefault()
@@ -22,6 +21,58 @@ $(document).ready(function() {
     pointer.prev().append(fid_display.replace(regexp, time));
   }
 
+  //  AJAX FOR RADIO BUTTON SELECTION
+  $('body').on('click', '.radio', function (e) {
+    var answerId = $(this).find('input').val();
+    var questionId = $(this).find('input').attr('id').split('_')[1]
+    var testId = window.location.href.split('/').slice(-1)[0];
+    var url = $('#main-content').attr('data-url');
+
+    $.ajax({
+      url: `${url}/test_answers/${testId}`,
+      // fix csrf header error blah blah
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+      method: 'put',
+      data: {
+        answers: answerId,
+        question_id: questionId,
+        test_id: testId
+      }
+    })
+    .done(function () {
+      console.log("1");
+    })
+  })
+
+  // AJAX FOR CHECKBOX SELECTION
+  $('body').on('change', '.checkbox input[type="checkbox"]', function(e) {
+    if($(this).parent().parent().find('input[type=checkbox]:checked') != null){
+      var answerArray = $(this).parent().parent().find('input[type=checkbox]:checked').map(function(){
+        return $(this).val();
+      }).get();
+
+      var questionId = $(this).attr('id').split('_')[1];
+      var testId = window.location.href.split('/').slice(-1)[0];
+      var url = $('#main-content').attr('data-url');
+
+      $.ajax({
+        url: `${url}/test_answers/${testId}`,
+        // fix csrf header error blah blah
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+        method: 'put',
+        data: {
+          answers: answerArray,
+          question_id: questionId,
+          test_id: testId
+        }
+      })
+      .done(function () {
+        console.log("1");
+      });
+
+      console.log(answerArray);
+    }
+  });
 });
 
 window.onload = function(){
@@ -79,7 +130,6 @@ window.onload = function(){
     }, 1000);
 
     setInterval(function(){
-      console.log("a");
       var hour = hourEle.innerHTML;
       var min = minEle.innerHTML
 
