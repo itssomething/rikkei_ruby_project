@@ -1,4 +1,12 @@
 class TestAnswersController < ApplicationController
+  def index
+    @test_answers = TestAnswer.where(test_id: params[:test_id]).select(:answer, :question_id)
+    # byebug
+    respond_to do |format|
+      format.json {render json: @test_answers}
+    end
+  end
+
   def update
     # return unless params[:answers].present?
 

@@ -1,7 +1,7 @@
 <div class="test-info-container">
   <div>Test of <%= @test.exam.name %></div>
   <div>Time: <%= @test.exam.time %> </div>
-  <div>Status: <%= @test.status.humanize %> </div>
+  <div>Status: <span id="test-status-info"><%= @test.status.humanize %> </div>
   <% if @test.status == "tested" %>
     <div>Score: <strong><%= @test.score %>/20</strong></div>
   <% end %>
@@ -21,7 +21,7 @@
   <% if @test.status == "not_tested" %>
     <%= form_for @test, method: :patch do |f| %>
       <% @questions.each.with_index(1) do |q, index| %>
-        <div class="question-area">
+        <div class="question-area question-area-id-<%= q.id %>">
 
           <div><%= index %>. &nbsp<%= q.name %></div>
           <% if q.is_multi? %>
