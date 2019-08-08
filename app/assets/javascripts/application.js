@@ -14,3 +14,5 @@
 //= require activestorage
 //= require jquery
 //= require_tree .
+//= require highcharts
+//= require exporting
