@@ -1,28 +1,4 @@
 <h1 style="text-align: center">Dashboard</h1>
-<div class="container grid-container">
 
-  <div class="manage1">
-    <div class="admin-group-fn">
-      Exams management
-    </div>
-    <div class="card">
-      <%= button_to "List exams", category_path(1), method: :get, class: "btn list-exam-btn" %>
-    </div>
-    <div class="card">
-      <%= button_to "Create exams", new_category_exam_path(1), method: :get, class: "btn list-exam-btn" %>
-    </div>
-  </div>
-  <div class="manage2">
-    <div class="admin-group-fn">
-      Tests management
-    </div>
-    <div class="card">
-      <%= link_to tests_path, class: "test" do %>
-        <span><%= image_tag "organize.svg", class: "icon-link" %></span>
-        <span class="link-icon">List tests</span>
-      <% end %>
-    </div>
-  </div>
-  <div class="admin-group-fn manage3">Users management</div>
-  <div class="statistic">Statistic</div>
-</div>
+<div class="chart-field"></div>
+<div class="bar-chart-field"></div>

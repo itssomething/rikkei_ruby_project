@@ -6,6 +6,11 @@ class UsersController < ApplicationController
   def index
     @users = User.includes(:tests).page(params[:page]).per(13)
     @tests_count = User.tests_count
+
+    respond_to do |format|
+      format.html {}
+      format.json{render json: @users}
+    end
   end
 
   def create
