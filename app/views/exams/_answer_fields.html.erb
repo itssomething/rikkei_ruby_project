@@ -1,8 +1,15 @@
-<div class="answer-li">
+<div class="answer-li answer-field">
   <%= f.label :content %>
   <%= f.text_field :content, class: "small-field width-80-percent" %>
+
   <div class="checkbox" style="float: right">
-    <%= f.check_box :is_correct %>
+    <%= f.check_box :is_correct, {}, 'true', 'false' %>
     <%= f.label :is_correct, "Is correct?", class: "label is-correct rem-09-label" %>
+  </div>
+
+  <div class="close">
+    <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+      <span aria-hidden="true">×</span>
+    </button>
   </div>
 </div>

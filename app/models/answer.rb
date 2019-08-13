@@ -1,5 +1,5 @@
 class Answer < ApplicationRecord
-  before_save :normalize_params
+  # before_save :normalize_params
 
   belongs_to :question
 
@@ -14,6 +14,6 @@ class Answer < ApplicationRecord
   private
 
   def normalize_params
-    self.assign_attributes is_correct: (self.is_correct == "0" ? false : true)
+    self.assign_attributes is_correct: (self.is_correct == "false" ? false : true)
   end
 end

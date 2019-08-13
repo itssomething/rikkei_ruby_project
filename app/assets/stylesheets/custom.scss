@@ -49,6 +49,15 @@ body {
   }
 }
 
+.form-control.with-errors {
+  border: 2px solid #dc3545;
+}
+
+.please-fill {
+  color: #dc3545;
+  font-size: 0.8rem;
+}
+
 input {
   margin: 0;
   font-family: inherit;
@@ -129,7 +138,7 @@ li a:hover {
   width: 100%;
   height: 100%;
   // min-width: 100%;
-  // min-height: 100%;
+  min-height: 700px;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -914,4 +923,22 @@ input[type="radio"] {
 
 .bar-chart-field{
   min-height: 400px;
+}
+
+.close {
+  border: none;
+  background: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: red
+}
+
+.clear-both {
+  clear: both;
+}
+
+.answer-li .close {
+  position: absolute;
+  top: 11px;
+  right: 0px;
 }

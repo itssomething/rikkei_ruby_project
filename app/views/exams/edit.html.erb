@@ -31,7 +31,8 @@
     <%= f.fields_for :questions do |x| %>
       <%= render  "question_fields", f: x %>
     <% end %>
-      <%= link_to_add_field( "Add question", f, :questions, class: "add-question") %>
+    <div></div>
+    <%= link_to_add_field( "Add question", f, :questions, class: "add-question") %>
 
 
     <div>

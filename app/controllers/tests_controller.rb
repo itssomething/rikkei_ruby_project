@@ -2,6 +2,7 @@ class TestsController < ApplicationController
   include UserConcern
 
   before_action :check_user_logged_in
+  before_action :find_test, only: %w(show update)
 
   def index
     if current_user.admin?
@@ -27,7 +28,6 @@ class TestsController < ApplicationController
   end
 
   def show
-    @test = Test.find_by(id: params[:id])
     @test_answers = @test.test_answers.includes(:question)
     @questions = @test.questions.includes(:answers)
   end
@@ -38,7 +38,6 @@ class TestsController < ApplicationController
   def update
     # k: question id, v: answer id
 
-    @test = Test.find_by id: params[:id]
     @test.assign_attributes status: "tested"
     score = 0
 
@@ -52,6 +51,20 @@ class TestsController < ApplicationController
   end
 
   private
+
+  attr_reader :test
+
+  def find_test
+    if current_user.admin?
+      @test = Test.find_by id: params[:id]
+    else
+      @test = current_user.tests.find_by id: params[:id]
+    end
+
+    return unless @test.blank?
+    flash[:danger] = "Test not exist"
+    redirect_to root_path
+  end
 
   def check_user_logged_in
     redirect_to new_session_path unless current_user.present?

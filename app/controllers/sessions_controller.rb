@@ -12,20 +12,21 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
 
       if current_user.admin?
+        flash[:success] = "Login successfully"
         redirect_to admin_path and return
       else
-        flash.keep[:success] = "Login successfully"
+        flash[:success] = "Login successfully"
         redirect_to user_home_path and return
       end
     else
-      flash[:danger] = "Failed to log in "
+      flash.now[:danger] = "Failed to log in "
       render :new
     end
   end
 
   def destroy
     session[:user_id] = nil
-    flash.now[:success] = "Logout successfully"
+    flash[:success] = "Logout successfully"
     redirect_to new_session_path
   end
 

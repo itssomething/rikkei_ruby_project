@@ -169,35 +169,39 @@ function createScoreChart(){
   var url = $('#main-content').attr('data-url');
   var option = $('.custom-select select').val();
 
-  $.ajax({
-    type: "GET",
-    url: `${url}/tests_chart.json`,
-    dataType: "json",
-    data: {
-      option: option
-    }
-  })
-  .done(function(data1){
-    if(option == "0")
-      initBarChartYear(data1);
-    else if (option == "1")
-      initBarChartMonth(data1);
-  })
+  if($('body').find('.bar-chart-field')[0] != null ) {
+    $.ajax({
+      type: "GET",
+      url: `${url}/tests_chart.json`,
+      dataType: "json",
+      data: {
+        option: option
+      }
+    })
+    .done(function(data1){
+      if(option == "0")
+        initBarChartYear(data1);
+      else if (option == "1")
+        initBarChartMonth(data1);
+    })
+  }
 }
 
 $(document).ready(function() {
   var url = $('#main-content').attr('data-url');
 
-  $.ajax({
-    type: "GET",
-    url: `${url}/users_chart.json`,
-    dataType: "json"
-  })
-  .done(function(data){
-    initChart(data);
-  });
+  if($('body').find('.chart-field')[0] != null){
+    $.ajax({
+      type: "GET",
+      url: `${url}/users_chart.json`,
+      dataType: "json"
+    })
+    .done(function(data){
+      initChart(data);
+    });
 
-  createScoreChart();
+    createScoreChart();
+  }
 
   $('body').on('change', '.custom-select select', function(){
     createScoreChart();

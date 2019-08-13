@@ -1,4 +1,6 @@
 class ExamsController < ApplicationController
+  before_action :find_exam, only: %w(show edit update destroy)
+
   def index
     @exams = Exam.all.includes(:category)
     @questions_count = Exam.questions_count
@@ -12,32 +14,37 @@ class ExamsController < ApplicationController
   end
 
   def create
-    byebug
+    binding.pry
     @exam = Exam.new exam_params
-    @exam.save
+
+    if exam.save
+      redirect_to category_exam_path(exam.category, exam) and return
+    else
+      render :new and return
+    end
   end
 
   def show
-    @exam = Exam.find_by id: params[:id]
-    @questions = @exam.questions.includes(:answers)
+    @questions = exam.questions.includes(:answers)
   end
 
   def edit
-    @exam = Exam.find_by id: params[:id]
     @category = Category.find_by id: params[:category_id]
-    @questions = @exam.questions
+    @questions = exam.questions
 
   end
 
   def update
-    @exam = Exam.find_by id: params[:id]
-    redirect_to @exam
+    if exam.update_attributes exam_params
+      flash[:success] = "Exam updated"
+      redirect_to category_exam_path(exam.category, exam) and return
+    else
+      render :edit
+    end
   end
 
   def destroy
-    @exam = Exam.find_by id: params[:id]
-
-    if @exam.destroy
+    if exam.destroy
       flash[:success] = "Exam deleted"
       respond_to do |format|
         format.js
@@ -47,6 +54,16 @@ class ExamsController < ApplicationController
 
   private
 
+  attr_reader :exam
+
+  def find_exam
+    @exam = Exam.find_by id: params[:id]
+
+    return if @exam.present?
+    flash[:danger] = "Exam not found"
+    redirect_to root_path
+  end
+
   def category_param
     params[:category_id]
   end
@@ -55,8 +72,8 @@ class ExamsController < ApplicationController
     params.require(:exam).permit(
       :name, :number_of_questions, :time,
       :questions_attributes => [
-        :name, :_destroy, :answers_attributes => [
-          :content, :is_correct, :_destroy
+        :id, :name, :_destroy, :answers_attributes => [
+          :id, :content, :is_correct, :_destroy
         ]
       ]).merge(category_id: params[:category_id])
   end

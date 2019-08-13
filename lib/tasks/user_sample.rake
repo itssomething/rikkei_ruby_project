@@ -1,6 +1,7 @@
 namespace :user_sample do
   task users: :environment do
     puts "Sample users data"
+    User.create!(name: "Admin", email: "admin@admin.com", password: "123456", role: "admin")
     User.create!(name: "User", email: "user@user.com", password: "123456", role: "user")
 
     100.times do |n|
