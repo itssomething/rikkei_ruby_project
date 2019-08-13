@@ -11,11 +11,17 @@ module ApplicationHelper
   end
 
   def current_user
-    @current_user = User.find_by id: session[:user_id]
+    @current_user ||= User.find_by id: session[:user_id]
   end
 
   def show_correct_answers test_answer
     Answer.where(id: test_answer.correct_answer.split(',')
       .map(&:to_i)).pluck :content
+  end
+
+  def stack_bar_filter_options
+    {this_year: 0, this_month: 1}.map do |k, v|
+      [k = k.to_s.humanize, v]
+    end
   end
 end

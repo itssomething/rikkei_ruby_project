@@ -1,4 +1,13 @@
 <h1 style="text-align: center">Dashboard</h1>
 
-<div class="chart-field"></div>
-<div class="bar-chart-field"></div>
+<div class="container">
+  <div class="chart-field"></div>
+  <br>
+  <div class="custom-select">
+    Filter by
+    <select>
+      <%= options_for_select(stack_bar_filter_options) %>
+    </select>
+  </div>
+  <div class="bar-chart-field"></div>
+</div>

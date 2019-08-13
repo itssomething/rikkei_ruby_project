@@ -888,3 +888,30 @@ input[type="radio"] {
   background-color: #30c39e;
   color: white;
 }
+
+.custom-select {
+  width: 100px;
+}
+
+.custom-select select {
+  // display: none;
+  padding: .6em 1.4em .5em .8em;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  border-radius: .2em;
+}
+
+.select-selected:after {
+  position: absolute;
+  content: "";
+  top: 14px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 6px solid transparent;
+  border-color: #fff transparent transparent transparent;
+}
+
+.bar-chart-field{
+  min-height: 400px;
+}

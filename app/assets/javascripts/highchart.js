@@ -33,7 +33,7 @@ function initChart(data) {
   });
 }
 
-function initBarChart(data) {
+function initBarChartYear(data) {
   Highcharts.setOptions({
     global: {
       timezone: "Europe/Oslo"
@@ -99,6 +99,92 @@ function initBarChart(data) {
   });
 };
 
+function initBarChartMonth(data) {
+  Highcharts.setOptions({
+    global: {
+      timezone: "Europe/Oslo"
+    }
+  });
+  $('.bar-chart-field').highcharts({
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Score statistic'
+    },
+    xAxis: {
+      categories: Object.keys(data)
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: 'Number of score'
+      },
+      stackLabels: {
+        enabled: true,
+        style: {
+          fontWeight: 'bold',
+          color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+        }
+      }
+    },
+    legend: {
+      align: 'right',
+      x: -30,
+      verticalAlign: 'top',
+      y: 25,
+      floating: true,
+      backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+      borderColor: '#CCC',
+      borderWidth: 1,
+      shadow: false
+    },
+    tooltip: {
+      headerFormat: '<b>{point.x}</b><br/>',
+      pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+    },
+    plotOptions: {
+      column: {
+        stacking: 'normal',
+        dataLabels: {
+          enabled: true,
+          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+        }
+      }
+    },
+    series: [{
+      name: '0-10',
+      data: [data[Object.keys(data)[0]][0], data[Object.keys(data)[1]][0], data[Object.keys(data)[2]][0], data[Object.keys(data)[3]][0], data[Object.keys(data)[4]][0]]
+    }, {
+      name: '11-15',
+      data: [data[Object.keys(data)[0]][1], data[Object.keys(data)[1]][1], data[Object.keys(data)[2]][1], data[Object.keys(data)[3]][1], data[Object.keys(data)[4]][1]]
+    }, {
+      name: '15-20',
+      data: [data[Object.keys(data)[0]][2], data[Object.keys(data)[1]][2], data[Object.keys(data)[2]][2], data[Object.keys(data)[3]][2], data[Object.keys(data)[4]][2]]
+    }]
+  });
+}
+
+function createScoreChart(){
+  var url = $('#main-content').attr('data-url');
+  var option = $('.custom-select select').val();
+
+  $.ajax({
+    type: "GET",
+    url: `${url}/tests_chart.json`,
+    dataType: "json",
+    data: {
+      option: option
+    }
+  })
+  .done(function(data1){
+    if(option == "0")
+      initBarChartYear(data1);
+    else if (option == "1")
+      initBarChartMonth(data1);
+  })
+}
+
 $(document).ready(function() {
   var url = $('#main-content').attr('data-url');
 
@@ -109,14 +195,11 @@ $(document).ready(function() {
   })
   .done(function(data){
     initChart(data);
-  })
+  });
 
-  $.ajax({
-    type: "GET",
-    url: `${url}/tests_chart.json`,
-    dataType: "json"
-  })
-  .done(function(data1){
-    initBarChart(data1);
-  })
+  createScoreChart();
+
+  $('body').on('change', '.custom-select select', function(){
+    createScoreChart();
+  });
 });
