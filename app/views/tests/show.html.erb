@@ -1,6 +1,7 @@
 <div class="test-info-container">
   <div>Test of <%= @test.exam.name %></div>
-  <div>Time: <%= @test.exam.time %> </div>
+  <div>Time: <%= @test.exam.time %> min</div>
+  <div>Number of questions: <%= @test.questions.count %>
   <div>Status: <span id="test-status-info"><%= @test.status.humanize %> </div>
   <% if @test.status == "tested" %>
     <div>Score: <strong><%= @test.score %>/20</strong></div>
@@ -51,7 +52,7 @@
   <% else %>
     <% @test_answers.includes(:question).each.with_index(1) do |ta, index| %>
       <div class="question-area">
-        <div><%= index %>. &nbsp<%= ta.question.name %></div>
+        <div class="question-name"><%= index %>. &nbsp<%= ta.question.name %></div>
 
         <% if ta.question.is_multi? %>
           <% ta.question.answers.each do |a| %>
