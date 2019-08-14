@@ -1,34 +1,54 @@
-<div id="mySidebar" class="sidebar">
-  <%= link_to admin_path, class: "nav-link" do %>
-    <div>
-      <%= image_tag "organize.svg" %>
-      <span>Dashboard</span>
+<div id="mySidebar" class="sidebar-parent">
+  <div class="sidebar2">
+    <div class="ul-fake">
+      <div class="li-fake">
+        <a href="#">
+        <%= link_to '/home' do %>
+          <div>
+            <%= image_tag "organize.svg" %>
+            <span class="parent-text-2">Dashboard</span>
+          </div>
+        <% end %>
+      </div>
+      <div class="li-fake">
+        <%= link_to '#' do %>
+          <div>
+            <%= image_tag "organize.svg" %>
+            <span class="parent-text-2">Profile</span>
+          </div>
+        <% end %>
+      </div>
+      <div class="li-fake">
+        <a href="#">
+          <div>
+            <%= image_tag "organize.svg" %>
+            <span class="parent-text-2">Test management</span>
+          </div>
+        </a>
+        <div class="expandable-2">
+          <div>
+            <%= link_to "/home" do %>
+              <div>
+                <span>Do test</span>
+              </div>
+            <% end %>
+          </div>
+          <div>
+            <%= link_to tests_path(status: "testing") do %>
+              <div>
+                <span>Pending test</span>
+              </div>
+            <% end %>
+          </div>
+          <div>
+            <%= link_to tests_path(status: "tested") do %>
+              <div>
+                <span>Pending test</span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <%= link_to '#', class: "nav-link" do %>
-    <div>
-      <%= image_tag "organize.svg" %>
-      <span>Profile</span>
-    </div>
-  <% end %>
-  <div class="expandable" id="nav">
-    <ul class="child-menu">
-      <li class="child-li"><%= link_to "View profile", user_path(current_user), class: "child-li-a" %></li>
-    </ul>
-  </div>
-
-  <%= link_to '#', class: "nav-link" do %>
-    <div>
-      <%= image_tag "organize.svg" %>
-      <span>Tests management</span>
-    </div>
-  <% end %>
-  <div class="expandable" id="nav">
-    <ul class="child-menu">
-      <li class="child-li"><%= link_to "Do test", admin_path, class: "child-li-a" %></li>
-      <li class="child-li"><%= link_to "Pending tests", tests_path(status: "testing"), class: "child-li-a" %></li>
-      <li class="child-li"><%= link_to "Finished tests", tests_path(status: "tested"), class: "child-li-a" %></li>
-    </ul>
   </div>
 </div>

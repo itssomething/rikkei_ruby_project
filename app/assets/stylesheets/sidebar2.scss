@@ -1,0 +1,117 @@
+html,body {
+  height:100%;
+  margin: 0;
+}
+
+.sidebar-parent {
+	display: flex;
+  height: 100%;
+}
+
+.sidebar2 {
+  height: 100%;
+  height: 100%;
+	width: 250px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: #0a8ea0;
+	overflow-x: visible;
+	padding-top: 60px;
+	transition: 0.5s;
+}
+
+.sidebar2 span {
+	margin-left: 0.8em;
+}
+.sidebar2 .ul-fake {
+	list-style-type: none;
+	position: relative;
+}
+
+.sidebar2 {
+	background-color: #0a8ea0;
+	width: 250px;
+}
+
+.sidebar2 .ul-fake {
+	margin: 0;
+	padding: 0;
+}
+.sidebar2 .ul-fake .li-fake {
+	/*background-color: red;*/
+	width: inherit;
+	/*padding: 20px;*/
+	/*margin: 20px;*/
+	display: block;
+}
+
+.sidebar2 .ul-fake .li-fake:hover {
+	width: 250px;
+	background-color: #30c39e;
+}
+
+.sidebar2 .ul-fake .li-fake > .expandable-2 > div {
+	background-color: #0a8ea0;
+}
+
+.sidebar2 .ul-fake .li-fake > .expandable-2 > div:hover {
+	background-color: #30c39e;
+}
+
+.sidebar2 img {
+	width: 20px;
+	vertical-align: bottom;
+}
+
+.sidebar2.collapsed {
+	width: 60px;
+}
+
+.sidebar2.collapsed a span.parent-text-2{
+	display: none;
+}
+
+.sidebar2.collapsed .li-fake:hover a span {
+	display: initial;
+}
+
+.sidebar2 a {
+	text-decoration: none;
+	color: white;
+}
+
+.li-fake a > div {
+	padding: 20px;
+}
+
+.li-fake {
+	position: relative;
+}
+
+.sidebar2 .li-fake > .expandable-2{
+	position: relative;
+	color: white;
+}
+
+.sidebar2.collapsed .li-fake > .expandable-2 {
+	display: none;
+}
+
+.sidebar2.collapsed .li-fake:hover > .expandable-2 {
+	display: initial;
+	position: absolute;
+    left: 60px;
+    top: 63px;
+    width: 190px;
+    background-color: #30c39e;
+    color: white;
+}
+
+.li-fake > .expandable-2 span {
+	/*color: black;*/
+}
+
+.expand-detail {
+	margin-left: calc(20px + 0.8em);
+}

@@ -79,19 +79,21 @@ window.onload = function(){
 	var navBarStatus = "open";
 
 	document.getElementById('toggle-nav').addEventListener('click', function (event) {
-		var sideBar = document.getElementById('mySidebar');
+		var sideBar = $('.sidebar2');
 		var topBar = document.getElementById('top-bar');
     var mainContent = document.getElementById('main-content');
 
 		if(navBarStatus=="open"){
       // sideBar.style.width = '0px';
-      sideBar.classList.add("collapsed");
+      sideBar.addClass("collapsed");
+      $('.sidebar2').addClass('collapsed');
 			topBar.style.marginLeft = '60px';
       navBarStatus = 'close';
       mainContent.style.marginLeft = '60px';
 		} else {
       // sideBar.style.width = '250px';
-      sideBar.classList.remove("collapsed");
+      sideBar.removeClass("collapsed");
+      $('.sidebar2').removeClass('collapsed');
 			topBar.style.marginLeft = '250px';
       navBarStatus = 'open';
       mainContent.style.marginLeft = '250px';
