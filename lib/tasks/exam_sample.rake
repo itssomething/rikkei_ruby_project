@@ -6,18 +6,20 @@ namespace :exam_sample do
       10.times do |m|
         puts "question #{m}"
         multi = [true, false].sample
-        @question = @exam.questions.create!(name: Faker::Lorem.sentence(10), is_multi: multi, exam_id: @exam.id)
-        if multi == true
-          4.times do |k|
+        ActiveRecord::Base.transaction do
+          @question = @exam.questions.create!(name: Faker::Lorem.sentence(10), is_multi: multi, exam_id: @exam.id)
+          if multi == true
+            4.times do |k|
+              @answer = @question.answers.create!(content: Faker::Lorem.sentence(3),
+                is_correct: [true, false].sample, question_id: @question.id)
+            end
+          else
             @answer = @question.answers.create!(content: Faker::Lorem.sentence(3),
-              is_correct: [true, false].sample, question_id: @question.id)
-          end
-        else
-          @answer = @question.answers.create!(content: Faker::Lorem.sentence(3),
-            is_correct: true, question_id: @question.id)
-          3.times do |k|
-            @answer = @question.answers.create!(content: Faker::Lorem.sentence(3),
-              is_correct: false, question_id: @question.id)
+              is_correct: true, question_id: @question.id)
+            3.times do |k|
+              @answer = @question.answers.create!(content: Faker::Lorem.sentence(3),
+                is_correct: false, question_id: @question.id)
+            end
           end
         end
       end

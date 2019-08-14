@@ -17,8 +17,6 @@ class ChartsController < ApplicationController
                                   year_data
                                 when 1
                                   month_data
-                                when 2
-                                  week_data
                                 end}
     end
   end

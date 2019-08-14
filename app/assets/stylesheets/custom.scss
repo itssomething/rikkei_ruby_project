@@ -617,7 +617,7 @@ input[type="checkbox"] {
 }
 
 .checkbox .label, .radio .label {
-  margin-left: 27px;
+  margin-left: 2.1em;
 }
 
 .checkbox .label::before {
@@ -953,4 +953,13 @@ input[type="radio"] {
 .leaderboard-table {
   display: flex;
   flex-direction: column;
+}
+
+.question-name {
+  font-size: 1.1em;
+  padding-bottom: 0.4em;
+}
+
+.checkbox, .radio {
+  margin-bottom: 0.4em;
 }

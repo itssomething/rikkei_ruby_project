@@ -2,16 +2,17 @@
 $(document).ready(function() {
   if(window.location.href.includes('tests/') && $('#test-status-info').text().trim() == "Not tested") {
     var url = $('#main-content').attr('data-url');
-
+    var testId = $('form').attr('action').split('/')[$('form').attr('action').split('/').length - 1];
     $.ajax({
       url: `${url}/test_answers`,
       method: 'get',
       data: {
-        test_id: $('form').attr('action').slice(-1)[0]
+        test_id: testId
       },
       dataType:'json'
     })
     .done(function (res) {
+      console.log(res);
       res.forEach(function(obj) {
         var inputArr = $(`.question-area-id-${obj.question_id}`).find('input');
         $.each(inputArr, function(index, ele){

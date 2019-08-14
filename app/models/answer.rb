@@ -8,7 +8,7 @@ class Answer < ApplicationRecord
   end
 
   def is_chosen? test_id, question_id
-    test_answer = TestQuestion.find_by(test_id: test_id, question_id: question_id)
+    TestQuestion.find_by(test_id: test_id, question_id: question_id)
   end
 
   private

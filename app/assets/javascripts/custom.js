@@ -110,9 +110,6 @@ window.onload = function(){
         var min = minEle.innerHTML;
         var newMin = min - 1;
 
-        // if(min == "00" && hourEle.innerHTML == "01"){
-        //   clearInterval(myInterval);
-        // }
         if(newMin < 0 ){
           newMin = 59;
           hourEle.innerHTML = hourEle.innerHTML - 1;
@@ -143,5 +140,4 @@ window.onload = function(){
       }
     }, 500);
   }
-
 }

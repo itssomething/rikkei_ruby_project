@@ -9,22 +9,22 @@ class Test < ApplicationRecord
 
   enum status: {not_tested: 0, tested: 1}
 
-  scope :score_leaderboard, (lambda do
-    joins(:user).order(score: :desc).includes(:user)
-  end)
+  scope :score_leaderboard, -> do
+    joins(:user).order(score: :desc).includes(:user).includes(:exam)
+  end
 
-  scope :view_by_status, (lambda do |status|
+  scope :view_by_status, ->(status) do
     return if status.blank?
-    
+
     where(status: status)
-  end)
+  end
 
   def remain_time
     self.time_start + self.exam.time * 60 - Time.zone.now
   end
 
   def remain_mins
-    min = (self.remain_time/60).round(half: :down)
+    min = (self.remain_time/60).floor
     if min.to_s.length == 1
       min = "0" + min.to_s
     end
@@ -32,7 +32,7 @@ class Test < ApplicationRecord
   end
 
   def remain_secs
-    sec = self.remain_time.modulo(60).round(half: :down)
+    sec = self.remain_time.modulo(60).floor
     if sec.to_s.length == 1
       sec = "0" + sec.to_s
     end

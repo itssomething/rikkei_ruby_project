@@ -21,6 +21,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'kaminari'
+gem 'scout_apm'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

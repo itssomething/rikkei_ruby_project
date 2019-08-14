@@ -23,7 +23,7 @@
       <% @questions.each.with_index(1) do |q, index| %>
         <div class="question-area question-area-id-<%= q.id %>">
 
-          <div><%= index %>. &nbsp<%= q.name %></div>
+          <div class="question-name"><%= index %>. &nbsp<%= q.name %></div>
           <% if q.is_multi? %>
             <% q.answers.each do |a| %>
               <div class="checkbox">
@@ -57,18 +57,14 @@
           <% ta.question.answers.each do |a| %>
             <div class="checkbox">
               <%= check_box_tag ("question[#{ta.question.id}][]").to_sym, a.id, false, {id: "question_#{ta.question.id}_#{a.id}", disabled: true} %>
-              <% if ta.answer == ta.correct_answer %>
-                <% if ta.answer.include?(a.id.to_s) %>
-                  <strong class="correct-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %></strong>
-                <% else %>
-                  <%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %>
-                <% end %>
+              <% if ta.answer.include?(a.id.to_s) && ta.correct_answer.include?(a.id.to_s) %>
+                <strong class="correct-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content, class: "label" %></strong>
+              <% elsif ta.answer.include?(a.id.to_s) && !ta.correct_answer.include?(a.id.to_s) %>
+                <strong class="wrong-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content, class: "label" %></strong>
+              <% elsif !ta.answer.include?(a.id.to_s) && ta.correct_answer.include?(a.id.to_s) %>
+                <strong class="correct-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content, class: "label" %></strong>
               <% else %>
-                <% if ta.answer.include?(a.id.to_s) %>
-                  <strong class="wrong-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %></strong>
-                <% else %>
-                  <%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %>
-                <% end %>
+                <%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content, class: "label" %>
               <% end %>
             </div>
           <% end %>
@@ -76,33 +72,23 @@
           <% ta.question.answers.each do |a| %>
             <div class="radio">
               <%= radio_button_tag ("question[#{ta.question.id}][]").to_sym, a.id, false, {id: "question_#{ta.question.id}_#{a.id}", disabled: true} %>
-              <%# IF ANSWER IS CORRECT %>
-              <% if ta.answer == ta.correct_answer %>
-                <% if ta.answer.include?(a.id.to_s) %>
-                  <strong class="correct-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %></strong>
-                <% else %>
-                  <%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %>
-                <% end %>
 
-              <%# IF ANSWER IS NOT CORRECT %>
+              <%# neu answer co trong asnwer va trogn correct -> xanh %>
+              <%# cos trong answer va ko cos trong correct -> do %>
+              <%# khong co trong answer cos trong correct -> xanh %>
+              <%# khong co trong ca 2: -> thuong %>
+
+              <% if ta.answer.include?(a.id.to_s) && ta.correct_answer.include?(a.id.to_s) %>
+                <strong class="correct-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content, class: "label" %></strong>
+              <% elsif ta.answer.include?(a.id.to_s) && !ta.correct_answer.include?(a.id.to_s) %>
+                <strong class="wrong-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content, class: "label" %></strong>
+              <% elsif !ta.answer.include?(a.id.to_s) && ta.correct_answer.include?(a.id.to_s) %>
+                <strong class="correct-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content, class: "label" %></strong>
               <% else %>
-                <% if ta.answer.include?(a.id.to_s) %>
-                  <strong class="wrong-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %></strong>
-                <% else %>
-                  <%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content %>
-                <% end %>
+                <%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content, class: "label" %>
               <% end %>
             </div>
           <% end %>
-        <% end %>
-
-        <% if ta.answer != ta.correct_answer %>
-          <div class="solution">
-            <span>Correct answer:</span>
-            <% show_correct_answers(ta).each do |a| %>
-              <%= a %>
-            <% end %>
-          </div>
         <% end %>
       </div>
     <% end %>
