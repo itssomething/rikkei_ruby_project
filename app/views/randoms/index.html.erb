@@ -19,21 +19,24 @@
     </div>
 
     <div class="leaderboard-container">
-      <h2>Leaderboard</h2>
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Score</th>
-          <th>Exam</th>
-        </tr>
-        <% @leaderboard.each do |l| %>
-          <tr>
-            <td><%= l.user.name %></td>
-            <td><%= l.score %></td>
-            <td><%= l.exam.name %></td>
-          </tr>
-        <% end %>
-      </table>
+      <div class="leaderboard-table">
+        <h2>Leaderboard</h2>
+        <div>
+          <table>
+            <tr>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Score</th>
+              <th>Exam</th>
+            </tr>
+
+            <%= render "leaderboards", leaderboards: @leaderboards %>
+          </table>
+        </div>
+        <div>
+          <%#= paginate @leaderboards, views_prefix: 'randoms' %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

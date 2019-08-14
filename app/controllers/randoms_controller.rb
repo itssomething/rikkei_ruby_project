@@ -3,8 +3,13 @@ class RandomsController < ApplicationController
   before_action :check_role
 
   def index
-    @leaderboard = Test.score_leaderboard
+    @leaderboards = Test.score_leaderboard.page(params[:page]).per(5)
     @categories = Category.all.includes(:exams)
+
+    respond_to do |format|
+      format.js {}
+      format.html {}
+    end
   end
 
   private
