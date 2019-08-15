@@ -1,4 +1,6 @@
 class FilesController < ApplicationController
+  before_action :check_role
+  
   def new
   end
 
