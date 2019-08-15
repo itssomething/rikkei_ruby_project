@@ -7,13 +7,18 @@
       <th>Time remaining</th>
       <th>Action</th>
     </tr>
-  <% tests.each do |test| %>
-    <tr>
-      <td><%= test.exam.name %>
-      <td><%= test.questions.count %>
-      <td><%= test.user.name %>
-      <td><%= Time.at(test.remain_time * 60).utc.strftime("%H:%M") %>
-      <td><%= link_to "Do test", test_path(test) %></td>
-    <tr>
-  <% end %>
+    <% tests.each do |test| %>
+      <tr>
+        <td><%= test.exam.name %>
+        <td><%= test.questions.count %>
+        <td><%= test.user.name %>
+        <td><%= Time.at(test.remain_time * 60).utc.strftime("%H:%M") %>
+        <td><%= link_to "Do test", test_path(test) %></td>
+      <tr>
+    <% end %>
+  </table>
+
+  <div class="paginate">
+    <%= paginate tests, params: {status: "tested"} %>
+  </div>
 </div>

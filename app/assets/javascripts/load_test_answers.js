@@ -12,7 +12,6 @@ $(document).ready(function() {
       dataType:'json'
     })
     .done(function (res) {
-      console.log(res);
       res.forEach(function(obj) {
         var inputArr = $(`.question-area-id-${obj.question_id}`).find('input');
         $.each(inputArr, function(index, ele){

@@ -1,7 +1,24 @@
 <div class="container">
-  <% if params[:status] == "testing"%>
-    <%= render "testing_index", tests: @tests %>
+  <% if current_user.admin? %>
+    <h1 class="text-center">All tests</h1>
+    <table class="table">
+      <tr>
+        <th>Exam name</th>
+        <th>Number of questions</th>
+        <th>User</th>
+        <th>Score</th>
+        <th>Action</th>
+      </tr>
+      <%= render @tests %>
+    </table>
+    <div class="paginate">
+      <%= paginate @tests %>
+    </div>
   <% else %>
-    <%= render "tested_index", tests: @tests %>
+    <% if params[:status] == "testing"%>
+      <%= render "testing_index", tests: @tests %>
+    <% else %>
+      <%= render "tested_index", tests: @tests %>
+    <% end %>
   <% end %>
 </div>

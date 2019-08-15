@@ -1,6 +1,8 @@
 class TestAnswersController < ApplicationController
   def index
-    @test_answers = TestAnswer.where(test_id: params[:test_id]).select(:answer, :question_id)
+    @test_answers = TestAnswer.where(test_id: params[:test_id]).select(:answer, :question_id, :test_id)
+
+    return if @test_answers.first.test.tested?
 
     respond_to do |format|
       format.json {render json: @test_answers}

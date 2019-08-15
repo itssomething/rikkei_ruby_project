@@ -6,9 +6,9 @@ class TestsController < ApplicationController
 
   def index
     if current_user.admin?
-      @tests = Test.all
+      @tests = Test.all.includes(:user, :exam).page(params[:page]).per(10).order(created_at: :desc)
     else
-      @tests = current_user.tests.view_by_status(param_status)
+      @tests = current_user.tests.includes(:user, :exam).view_by_status(param_status).page(params[:page]).per(10).order(created_at: :desc)
     end
   end
 
@@ -19,7 +19,9 @@ class TestsController < ApplicationController
   def create
     @test = Test.create! exam_id: params[:exam_id], user_id: current_user.id,
       time_start: Time.zone.now
-    questions_list_ids = Exam.find_by(id: 3).question_ids.sample(20)
+    # TODO: add number of question in exam (question bank)
+    questions_list_ids = Exam.find_by(id: params[:exam_id]).question_ids.sample(@test.exam.number_of_question)
+    
     questions_list_ids.each do |question_id|
       @test_answers = @test.test_answers.create! question_id: question_id,
         test_id: @test.id

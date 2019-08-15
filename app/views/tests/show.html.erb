@@ -52,19 +52,25 @@
   <% else %>
     <% @test_answers.includes(:question).each.with_index(1) do |ta, index| %>
       <div class="question-area">
-        <div class="question-name"><%= index %>. &nbsp<%= ta.question.name %></div>
-
+        <% if ta.answer == ta.correct_answer %>
+          <div class="question-name corect-answer"><%= index %>. &nbsp<%= ta.question.name %></div>
+        <% else %>
+          <div class="question-name"><%= index %>. &nbsp<%= ta.question.name %></div>
+        <% end %>
         <% if ta.question.is_multi? %>
           <% ta.question.answers.each do |a| %>
             <div class="checkbox">
-              <%= check_box_tag ("question[#{ta.question.id}][]").to_sym, a.id, false, {id: "question_#{ta.question.id}_#{a.id}", disabled: true} %>
               <% if ta.answer.include?(a.id.to_s) && ta.correct_answer.include?(a.id.to_s) %>
+                <%= check_box_tag ("question[#{ta.question.id}][]").to_sym, a.id, false, {id: "question_#{ta.question.id}_#{a.id}", disabled: true} %>
                 <strong class="correct-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content, class: "label" %></strong>
               <% elsif ta.answer.include?(a.id.to_s) && !ta.correct_answer.include?(a.id.to_s) %>
+                <%= check_box_tag ("question[#{ta.question.id}][]").to_sym, a.id, false, {id: "question_#{ta.question.id}_#{a.id}", disabled: true} %>
                 <strong class="wrong-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content, class: "label" %></strong>
               <% elsif !ta.answer.include?(a.id.to_s) && ta.correct_answer.include?(a.id.to_s) %>
+                <%= check_box_tag ("question[#{ta.question.id}][]").to_sym, a.id, false, {id: "question_#{ta.question.id}_#{a.id}", disabled: true} %>
                 <strong class="correct-answer"><%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content, class: "label" %></strong>
               <% else %>
+                <%= check_box_tag ("question[#{ta.question.id}][]").to_sym, a.id, false, {id: "question_#{ta.question.id}_#{a.id}", disabled: true} %>
                 <%= label_tag ("question_#{ta.question.id}_#{a.id}").to_sym, a.content, class: "label" %>
               <% end %>
             </div>

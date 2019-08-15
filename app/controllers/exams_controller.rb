@@ -14,7 +14,6 @@ class ExamsController < ApplicationController
   end
 
   def create
-    binding.pry
     @exam = Exam.new exam_params
 
     if exam.save

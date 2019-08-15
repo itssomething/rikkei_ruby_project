@@ -22,6 +22,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
 gem 'kaminari'
 gem 'scout_apm'
+gem 'delayed_job_active_record'
+gem 'daemons'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

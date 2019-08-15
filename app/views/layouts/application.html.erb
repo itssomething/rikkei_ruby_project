@@ -27,12 +27,14 @@
       <%= yield %>
     </div>
 
-    <% if current_user.present? %>
-      <% if current_user.admin? %>
-        <%= render "layouts/admin_sidebar" %>
-      <% else %>
-        <%= render "layouts/user_sidebar" %>
+    <div>
+      <% if current_user.present? %>
+        <% if current_user.admin? %>
+          <%= render "layouts/admin_sidebar" %>
+        <% else %>
+          <%= render "layouts/user_sidebar" %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </body>
 </html>

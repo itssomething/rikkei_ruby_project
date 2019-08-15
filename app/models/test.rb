@@ -1,5 +1,8 @@
 class Test < ApplicationRecord
+  include TestConcern
+
   before_create :set_status
+  after_create :create_submit_job
 
   belongs_to :exam
   belongs_to :user
@@ -43,9 +46,24 @@ class Test < ApplicationRecord
     remain_time > 0
   end
 
+  def submit
+    return if self.status == "tested"
+    self.update_attributes status: "tested"
+    score = 0
+    test_answers = self.test_answers
+    test_answers.each do |test_answer|
+      score +=1 if test_answer.answer == test_answer.correct_answer
+    end
+    self.update_attributes score: score
+  end
+
   private
 
   def set_status
     self.assign_attributes status: :not_tested
+  end
+
+  def create_submit_job
+    self.delay(run_at: self.exam.time.minutes.from_now).submit
   end
 end

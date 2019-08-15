@@ -100,7 +100,7 @@ window.onload = function(){
 		}
   });
 
-  if(window.location.href.includes('test')){
+  if(window.location.href.includes('test') && $('#test-status-info').text().trim() == "Not tested"){
     var hourEle = document.getElementById('hour');
     var minEle = document.getElementById('min');
     var myInterval;
