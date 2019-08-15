@@ -165,7 +165,7 @@ li a:hover {
 }
 
 .form-group {
-  margin: 20px 0;
+  margin: 2em 0;
 }
 
 .li-right {
@@ -962,4 +962,33 @@ input[type="radio"] {
 
 .checkbox, .radio {
   margin-bottom: 0.4em;
+}
+
+.import-file-container {
+  box-sizing: border-box;
+  padding: 2em;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.custom-file-upload {
+  @extend .btn
+}
+
+.btn2 {
+  background-color: #007bff;
+  border: 1px solid transparent;
+  border-color: #007bff;
+  color: #fff;
+  border-radius: 4px;
+  padding: 8px 17px;
+  font-size: 17px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.import-file-container .form-group {
+  margin-top: 2em;
 }

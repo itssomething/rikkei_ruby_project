@@ -24,6 +24,7 @@ gem 'kaminari'
 gem 'scout_apm'
 gem 'delayed_job_active_record'
 gem 'daemons'
+gem "roo", "~> 2.8.0"
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]

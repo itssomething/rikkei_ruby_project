@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_action :check_role
+  
   def index
     @categories = Category.all
   end

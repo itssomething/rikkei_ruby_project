@@ -1,5 +1,6 @@
 class ExamsController < ApplicationController
   before_action :find_exam, only: %w(show edit update destroy)
+  before_action :check_role, only: %w(new create edit update destroy)
 
   def index
     @exams = Exam.all.includes(:category)

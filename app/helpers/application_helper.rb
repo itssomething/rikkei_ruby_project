@@ -24,4 +24,10 @@ module ApplicationHelper
       [k = k.to_s.humanize, v]
     end
   end
+
+  def check_role
+    return if current_user.admin?
+    flash[:danger] = "You can not access this page"
+    redirect_to "/"
+  end
 end

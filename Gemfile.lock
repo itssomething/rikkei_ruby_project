@@ -176,6 +176,9 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    roo (2.8.2)
+      nokogiri (~> 1)
+      rubyzip (>= 1.2.1, < 2.0.0)
     rubocop (0.73.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
@@ -185,6 +188,7 @@ GEM
       unicode-display_width (>= 1.4.0, < 1.7)
     ruby-progressbar (1.10.1)
     ruby_dep (1.5.0)
+    rubyzip (1.2.2)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -260,6 +264,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 3.11)
   rails (~> 5.2.3)
+  roo (~> 2.8.0)
   rubocop
   sass-rails (~> 5.0)
   scout_apm

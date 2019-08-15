@@ -1,0 +1,21 @@
+<div class="exam-show-container import-file-container">
+  <h1 class="text-center">Import exam file from excel</h1>
+  <%= link_to download_exam_template_path do %>
+    <button class="btn2" style="border: none">Download template</button>
+  <% end %>
+
+  <%= form_tag upload_exam_file_path, multipart: true, method: :post do %>
+    <div class="form-group">
+      <%= label_tag :category_id, "Category" %>
+      <%= select_tag :category_id, options_for_select(Category.all.pluck(:name, :id)), class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <label for="file" class="custom-file-upload">Choose file to Upload</label>
+      <%= file_field_tag "file" %>
+      <span id="file-name-span">No file chosen<span>
+    </div>
+
+    <%= submit_tag "Upload", class: "btn2" %>
+  <% end %>
+</div>

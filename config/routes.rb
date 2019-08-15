@@ -14,5 +14,9 @@ Rails.application.routes.draw do
   get "/users_chart", to: "charts#user_creation_info"
   get "/tests_chart", to: "charts#tests_info"
 
+  get "/upload-exam-file", to: "files#new"
+  post "/upload-exam-file", to: "files#upload_exam"
+  get "/download_exam_template", to: "files#download_exam_template"
+  
   root to: "randoms#index"
 end

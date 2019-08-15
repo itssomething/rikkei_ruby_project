@@ -9,11 +9,11 @@ class StaticsController < ApplicationController
 
   private
 
-  def check_role
-    return if current_user.admin?
-
-    redirect_to "/"
-  end
+  # def check_role
+  #   return if current_user.admin?
+  #   flash[:danger] = "You can not access this page"
+  #   redirect_to "/"
+  # end
 
   def check_logged_in
     return if current_user.present?
