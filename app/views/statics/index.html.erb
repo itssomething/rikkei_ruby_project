@@ -7,9 +7,28 @@
   <h2 class="text-center">Tests score statistic</h2>
   <div class="custom-select">
     Filter by
-    <select>
+    <select id="fixed-options">
       <%= options_for_select(stack_bar_filter_options) %>
     </select>
+
+    <div class="custom-filter-field hidden">
+      <%= label_tag :start_time %>
+      <%= date_field_tag (:start_time), nil, {class: "filter-date"} %>
+
+      <%= label_tag :end_time %>
+      <%= date_field_tag (:end_time), nil, {class: "filter-date"} %>
+
+      <%#= label_tag :step %>
+      <%#= number_field_tag (:step), nil, {class: "filter-date", min: 0} %>
+
+      <%= label_tag :step_type %>
+      <select id="step-type">
+        <%= options_for_select(["day", "week", "month"]) %>
+      </select>
+    </div>
+    <br>
+    <button class="btn2" id="apply-filter">Apply</button>
+    <br>
   </div>
   <div class="bar-chart-field"></div>
 </div>

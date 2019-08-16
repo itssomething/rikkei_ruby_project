@@ -20,7 +20,7 @@ module ApplicationHelper
   end
 
   def stack_bar_filter_options
-    {this_year: 0, this_month: 1}.map do |k, v|
+    {this_year: 0, this_month: 1, custom_range: 3}.map do |k, v|
       [k = k.to_s.humanize, v]
     end
   end

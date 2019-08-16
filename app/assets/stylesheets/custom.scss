@@ -992,3 +992,15 @@ input[type="file"] {
 .import-file-container .form-group {
   margin-top: 2em;
 }
+
+.filter-date {
+  padding: .6em 1.4em .5em .8em;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  border-radius: .2em;
+  margin-bottom: 2em;
+}
+
+.hidden {
+  display: none;
+}

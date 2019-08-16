@@ -165,6 +165,67 @@ function initBarChartMonth(data) {
   });
 }
 
+function initCustomBarChart(data) {
+  Highcharts.setOptions({
+    global: {
+      timezone: "Europe/Oslo"
+    }
+  });
+  $('.bar-chart-field').highcharts({
+    chart: {
+      type: 'column'
+    },
+    title: {
+      text: 'Score statistic'
+    },
+    xAxis: {
+      categories: Object.keys(data)
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: 'Number of score'
+      },
+      stackLabels: {
+        enabled: true,
+        style: {
+          fontWeight: 'bold',
+          color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+        }
+      }
+    },
+    legend: {
+      align: 'right',
+      x: -30,
+      verticalAlign: 'top',
+      y: 25,
+      floating: true,
+      backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || 'white',
+      borderColor: '#CCC',
+      borderWidth: 1,
+      shadow: false
+    },
+    tooltip: {
+      headerFormat: '<b>{point.x}</b><br/>',
+      pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+    },
+    plotOptions: {
+      column: {
+        stacking: 'normal',
+        dataLabels: {
+          enabled: true,
+          color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+        }
+      }
+    },
+    series: [
+      {name: "0-10", data: Object.values(data).map((e) => e[0])},
+      {name: "11-15", data: Object.values(data).map((e) => e[1])},
+      {name: "15-20", data: Object.values(data).map((e) => e[2])}
+    ]
+  });
+}
+
 function createScoreChart(){
   var url = $('#main-content').attr('data-url');
   var option = $('.custom-select select').val();
@@ -183,6 +244,8 @@ function createScoreChart(){
         initBarChartYear(data1);
       else if (option == "1")
         initBarChartMonth(data1);
+      else if (option == "3")
+        initCustomBarChart(data1);
     })
   }
 }
@@ -203,7 +266,35 @@ $(document).ready(function() {
     createScoreChart();
   }
 
-  $('body').on('change', '.custom-select select', function(){
-    createScoreChart();
+  $('body').on('click', '#apply-filter', function(){
+    if($('#fixed-options').val() == "1" || $('#fixed-options').val() == "0"){
+      createScoreChart();
+    } else {
+      var start = $('#start_time').val();
+      var end = $('#end_time').val()
+      var stepType = $('#step-type').val();
+      var option = $('#fixed-options').val()
+      $.ajax({
+        type: "GET",
+        url: `${url}/tests_chart.json`,
+        dataType: "json",
+        data: {
+          start: start,
+          end: end,
+          step_type: stepType,
+          option: option
+        }
+      })
+      .done(function(data){
+        initCustomBarChart(data);
+      })
+    }
   });
+
+  $('body').on('change', '#fixed-options', function(){
+    if($(this).val() == "3"){
+      $('.custom-filter-field').removeClass('hidden');
+    } else
+      $('.custom-filter-field').addClass('hidden');
+  })
 });
