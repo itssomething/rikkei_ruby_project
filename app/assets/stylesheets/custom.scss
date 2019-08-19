@@ -902,12 +902,19 @@ input[type="radio"] {
 }
 
 .custom-select {
-  width: 100px;
+  // width: 100px;
+  display: flex;
+  margin-bottom: 1.5em;
+
+}
+
+.custom-select label, select, input {
+  width: 80%;
 }
 
 .custom-select select {
   // display: none;
-  padding: .6em 1.4em .5em .8em;
+  padding: .8em 1em .7em .8em;
   border: 1px solid #aaa;
   background-color: #fff;
   border-radius: .2em;
@@ -986,7 +993,6 @@ input[type="file"] {
   padding: 8px 17px;
   font-size: 17px;
   cursor: pointer;
-  margin-top: 10px;
 }
 
 .import-file-container .form-group {
@@ -998,9 +1004,12 @@ input[type="file"] {
   border: 1px solid #aaa;
   background-color: #fff;
   border-radius: .2em;
-  margin-bottom: 2em;
 }
 
 .hidden {
   display: none;
+}
+
+.mg-l--20 {
+  margin-left: -1.2em;
 }

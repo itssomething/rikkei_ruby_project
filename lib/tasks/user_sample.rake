@@ -6,7 +6,9 @@ namespace :user_sample do
 
     100.times do |n|
       name = Faker::Name.name
-      user = User.create!(name: name, email: Faker::Internet.email(name: name) , password: "123456", role: "user")
+      user = User.create!(name: name, email: Faker::Internet.email(name: name),
+        password: "123456", role: "user",
+        created_at: rand(7.months.ago..Time.now))
       puts "User #{user.name} created"
     end
   end

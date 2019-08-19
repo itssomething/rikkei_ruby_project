@@ -272,6 +272,11 @@ $(document).ready(function() {
     } else {
       var start = $('#start_time').val();
       var end = $('#end_time').val()
+
+      if(start >= end){
+        alert("Start time must smaller than end time");
+        return;
+      }
       var stepType = $('#step-type').val();
       var option = $('#fixed-options').val()
       $.ajax({

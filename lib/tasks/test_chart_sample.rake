@@ -14,7 +14,7 @@ namespace :test_chart_sample do
 
   task test_chart_data: :environment do
     200.times do |n|
-      time_start = rand(6.months.ago..Time.now)
+      time_start = rand(8.months.ago..Time.now)
       @test = Test.create! time_start: time_start,
         score: rand(0..20), user_id: User.all.sample(1).first.id,
         exam_id: Exam.all.sample(1).first.id,

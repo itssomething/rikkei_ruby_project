@@ -6,7 +6,7 @@ namespace :user_chart_sample do
       name = Faker::Name.name
       user = User.create!(name: name, email: Faker::Internet.email(name: name),
         password: "123456", role: "user",
-        created_at: rand(30.days.ago..Time.now))
+        created_at: rand(7.months.ago..Time.now))
       puts "User #{user.name} created"
     end
   end

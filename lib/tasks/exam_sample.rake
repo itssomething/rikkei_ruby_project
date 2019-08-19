@@ -1,9 +1,9 @@
 namespace :exam_sample do
   task exams: :environment do
     puts "Sample exams data"
-    15.times do |n|
+    10.times do |n|
       @exam = Exam.create!(name: Faker::Educator.course_name, category_id: rand(1..5), time: 20)
-      10.times do |m|
+      40.times do |m|
         puts "question #{m}"
         multi = [true, false].sample
         ActiveRecord::Base.transaction do
