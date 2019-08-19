@@ -4,7 +4,7 @@ class ChartsController < ApplicationController
 
     new_hash = {}
     @user_creation_info.map do |k, v|
-      new_hash["#{Date.commercial(Time.now.year, k, 1).strftime("%d/%m/%Y")} - #{Date.commercial(Time.now.year, k, 4).strftime("%d/%m/%Y")}"] = v
+      new_hash["#{Date.commercial(Time.now.year, k, 1).strftime("%d/%m/%Y")} - #{Date.commercial(Time.now.year, k, 7).strftime("%d/%m/%Y")}"] = v
     end
 
     @user_creation_info = new_hash

@@ -1,36 +1,57 @@
 class FilesController < ApplicationController
+  include FileConcern
+
   before_action :check_role
-  
+
   def new
+    @exam_file = ExamFile.new
   end
 
   def upload_exam
-    binding.pry
+    @exam_file = ExamFile.new name: params[:name], time: params[:time],
+      number_of_questions: params[:number_of_questions],
+      category_id: params[:category_id], file: params[:file]
+
+    if !@exam_file.valid?
+      raise ActiveRecord::RecordInvalid
+    end
 
     file = Roo::Spreadsheet.open(params[:file])
+    binding.pry
     sheet = file.sheet(0)
-    ActiveRecord::Base.transaction(requires_new: true) do
-      @exam = Exam.create! name: sheet.row(1)[1], time: sheet.row(2)[1],
-        number_of_questions: sheet.row(3)[1], category_id: params[:category_id]
 
-      ((sheet.first_row + 1)..sheet.last_row).each do |row|
-        if sheet.row(row)[0] == "question"
-          ActiveRecord::Base.transaction do
-            # create question and save instance
-            question = Question.create! name: sheet.row(row)[1], exam: exam
-            number_of_answers = sheet.row(row+1)[1]
-            counter = 0
-            while counter < number_of_answers.to_i do
-              content = sheet.row(row+1+counter+1)[1]
-              correct = sheet.row(row+1+counter+1)[2]
-              Answer.create! content: content, is_correct: correct, question: question
-              counter += 1
-            end
-          end
+
+    ActiveRecord::Base.transaction(requires_new: true) do
+      @exam = Exam.new name: params[:name], time: params[:time],
+        number_of_questions: params[:number_of_questions],
+        category_id: params[:category_id]
+      @exam.save!
+
+      row_count = 2
+      question = Question.new exam: exam
+
+      while row_count <= sheet.last_row do
+
+        if sheet.row(row_count)[0].present?
+          question.save! if row_count > 2
+          question = Question.new exam: exam
+
+          question.name = sheet.row(row_count)[0]
+          @answer = question.answers.new
+          @answer.content = sheet.row(row_count)[1]
+          @answer.is_correct = (sheet.row(row_count)[2].present? && sheet.row(row_count)[2].downcase == "true")
+        else
+          @answer = question.answers.new
+          @answer.content = sheet.row(row_count)[1]
+          @answer.is_correct = (sheet.row(row_count)[2].present? && sheet.row(row_count)[2].downcase == "true")
         end
+        row_count += 1
       end
     end
     redirect_to category_exam_path(params[:category_id], @exam)
+  rescue ActiveRecord::RecordInvalid
+    exam_file
+    render :new
   end
 
   def download_exam_template
@@ -43,5 +64,9 @@ class FilesController < ApplicationController
 
   private
 
-  attr_reader :exam
+  attr_reader :exam_file, :exam
+
+  def file_valid?
+    valid_exam_extension.include? params[:file].content_type.split("/").last
+  end
 end

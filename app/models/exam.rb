@@ -10,4 +10,8 @@ class Exam < ApplicationRecord
   scope :questions_count, -> do
     joins(:questions).group(:exam_id).count(:id)
   end
+
+  validates :name, presence: true
+  validates :time, presence: true
+  validates :number_of_questions, presence: :true
 end
