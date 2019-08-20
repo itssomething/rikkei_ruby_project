@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   get "/upload-exam-file", to: "files#new"
   post "/upload-exam-file", to: "files#upload_exam"
   get "/download_exam_template", to: "files#download_exam_template"
-  
+
+  match "/404", :to => "errors#not_found", :via => :all
+  match "/500", :to => "errors#internal_server_error", :via => :all
+
   root to: "randoms#index"
 end

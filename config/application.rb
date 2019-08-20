@@ -31,5 +31,6 @@ module RikkeiProject
     config.generators.system_tests = nil
     # config.active_record.default_timezone = :local
     config.time_zone = "Hanoi"
+    config.exceptions_app = self.routes
   end
 end

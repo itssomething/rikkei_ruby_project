@@ -57,11 +57,11 @@ class ExamsController < ApplicationController
   attr_reader :exam
 
   def find_exam
-    @exam = Exam.find_by id: params[:id]
+    @exam = Exam.find params[:id]
 
     return if @exam.present?
-    flash[:danger] = "Exam not found"
-    redirect_to root_path
+    # flash[:danger] = "Exam not found"
+    # redirect_to root_path
   end
 
   def category_param
