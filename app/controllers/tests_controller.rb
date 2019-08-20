@@ -20,11 +20,11 @@ class TestsController < ApplicationController
     @test = Test.create! exam_id: params[:exam_id], user_id: current_user.id,
       time_start: Time.zone.now
     # TODO: add number of question in exam (question bank)
-    questions_list_ids = Exam.find_by(id: params[:exam_id]).question_ids.sample(@test.exam.number_of_question)
-    
+    questions_list_ids = Exam.find_by(id: params[:exam_id]).question_ids.sample(@test.exam.number_of_questions)
+
     questions_list_ids.each do |question_id|
-      @test_answers = @test.test_answers.create! question_id: question_id,
-        test_id: @test.id
+      @test_answers = @test.test_answers.create!( question_id: question_id,
+                                                  test_id: @test.id)
     end
     redirect_to @test
   end

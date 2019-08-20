@@ -14,11 +14,11 @@ class RandomsController < ApplicationController
 
   private
 
-  def check_role
-    return if current_user.user?
+  # def check_role
+  #   return if current_user.user?
 
-    redirect_to admin_path
-  end
+  #   redirect_to admin_path
+  # end
 
   def check_user_presence
     redirect_to new_session_path if current_user.blank?
