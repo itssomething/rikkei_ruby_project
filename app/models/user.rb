@@ -13,4 +13,8 @@ class User < ApplicationRecord
   scope :tests_count, -> do
     joins(:tests).group(:user_id).count(:id)
   end
+
+  def reset_token_expired?
+    Time.now - reset_sent_at > 20.minutes
+  end
 end

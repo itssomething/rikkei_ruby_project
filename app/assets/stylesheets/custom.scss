@@ -487,11 +487,11 @@ h3 {
 	// font-weight: 300;
 // }
 
-#top-bar {
+// #top-bar {
 	// display: float;
 	// align-items : center;
 	// justify-content: flex-start;
-}
+// }
 
 #top-bar-ul a{
   font-size: 18px;
@@ -1034,5 +1034,16 @@ input[type="file"] {
 
   & li {
     background-color: #dc3545;
+  }
+}
+
+.forgot-password {
+  font-size: 0.9em;
+  text-decoration: none;
+  color: #57595c;
+
+  &:hover {
+    color: #212529;
+    text-decoration: underline;
   }
 }

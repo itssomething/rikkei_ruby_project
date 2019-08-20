@@ -1,0 +1,14 @@
+<div class="sign-in-text">Reset password </div>
+
+<% flash.each do |message_type, message| %>
+  <div class="alert alert-<%= message_type %>"><%= message %></div>
+<% end %>
+
+<%= form_tag password_resets_path, id: "login-form" do %>
+  <div class="form-group">
+    <%= label_tag :email, "Email" %>
+    <%= text_field_tag :email, nil, class: "form-control", required: true %>
+  </div>
+
+  <%= submit_tag "Send reset instruction", class: "sign-in-btn" %>
+<% end %>
