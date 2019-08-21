@@ -1,8 +1,12 @@
 namespace :user_sample do
   task users: :environment do
     puts "Sample users data"
-    User.create!(name: "Admin", email: "admin@admin.com", password: "123456", role: "admin")
-    User.create!(name: "User", email: "user@user.com", password: "123456", role: "user")
+    user = User.create!(name: "Admin", email: "admin@admin.com", password: "123456")
+    user.admin!
+    user.activate
+    user = User.create!(name: "User", email: "user@user.com", password: "123456")
+    user.user!
+    user.activate 
 
     100.times do |n|
       name = Faker::Name.name
