@@ -18,6 +18,6 @@ class StaticsController < ApplicationController
   def check_logged_in
     return if current_user.present?
 
-    redirect_to new_session_path
+    redirect_to new_session_path and return
   end
 end

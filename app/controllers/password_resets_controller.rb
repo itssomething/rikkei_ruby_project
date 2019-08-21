@@ -12,20 +12,20 @@ class PasswordResetsController < ApplicationController
     @user.update_attributes reset_token: generate_token, reset_sent_at: Time.zone.now
     UserMailer.reset_password(@user, @user.reset_token).deliver_now
 
-    redirect_to root_path
     flash[:success] = "Please check your email for reset instruction"
+    redirect_to root_path and return
   end
 
   def edit
     return if @user.reset_token == params[:id]
     flash[:danger] = "Token mismatch"
-    redirect_to root_path
+    redirect_to root_path and return
   end
 
   def update
     if @user.update_attributes password: params[:password]
       flash[:success] = "Password reseted"
-      redirect_to root_path
+      redirect_to root_path and return
     else
       flash[:danger] = "Error"
       render :edit
@@ -49,7 +49,7 @@ class PasswordResetsController < ApplicationController
   def check_token_expiration
     return unless @user.reset_token_expired?
     flash[:danger] = "Token expired"
-    redirect_to root_path
+    redirect_to root_path and return
   end
 
   def validate_password_confirmation

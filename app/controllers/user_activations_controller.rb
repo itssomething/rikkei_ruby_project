@@ -6,8 +6,7 @@ class UserActivationsController < ApplicationController
     @user.update_attributes activated: true
 
     flash[:success] = "Acount activation successfully"
-    # login @user
-    redirect_to user_home_path
+    login @user
   end
 
   private
@@ -26,8 +25,8 @@ class UserActivationsController < ApplicationController
     redirect_to root_path and return
   end
 
-  # def login user
-  #   session[:user_id] = @user.id
-  #   redirect_to root_path and return
-  # end
+  def login user
+    session[:user_id] = @user.id
+    redirect_to root_path and return
+  end
 end

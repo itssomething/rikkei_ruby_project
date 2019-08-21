@@ -26,7 +26,7 @@ class TestsController < ApplicationController
       @test_answers = @test.test_answers.create!( question_id: question_id,
                                                   test_id: @test.id)
     end
-    redirect_to @test
+    redirect_to @test and return
   end
 
   def show
@@ -49,7 +49,7 @@ class TestsController < ApplicationController
       score += 1 if check_correction? key, value
     end
     @test.update_attributes status: "tested", score: score
-    redirect_to @test
+    redirect_to @test and return
   end
 
   private
@@ -65,11 +65,11 @@ class TestsController < ApplicationController
 
     return unless @test.blank?
     flash[:danger] = "Test not exist"
-    redirect_to root_path
+    redirect_to root_path and return
   end
 
   def check_user_logged_in
-    redirect_to new_session_path unless current_user.present?
+    redirect_to new_session_path and return unless current_user.present?
   end
 
   def answer_params

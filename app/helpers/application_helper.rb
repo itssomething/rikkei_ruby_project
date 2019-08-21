@@ -28,6 +28,6 @@ module ApplicationHelper
   def check_role
     return if current_user.admin?
     flash[:danger] = "You can not access this page"
-    redirect_to "/"
+    redirect_to "/" and return
   end
 end

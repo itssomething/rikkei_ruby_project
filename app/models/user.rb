@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_secure_password
 
   before_create :set_activation
+  before_create :set_role
 
   enum role: {user: 0, admin: 1}
 
@@ -38,5 +39,8 @@ class User < ApplicationRecord
     assign_attributes activated: false
   end
 
+  def set_role
+    assign_attributes role: "user"
+  end
 
 end

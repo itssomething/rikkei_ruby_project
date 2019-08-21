@@ -48,7 +48,7 @@ class FilesController < ApplicationController
         row_count += 1
       end
     end
-    redirect_to category_exam_path(params[:category_id], @exam)
+    redirect_to category_exam_path(params[:category_id], @exam) and return
   rescue ActiveRecord::RecordInvalid
     exam_file
     render :new

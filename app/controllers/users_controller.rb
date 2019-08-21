@@ -21,7 +21,7 @@ class UsersController < ApplicationController
       @user.update_attributes activation_token: generate_token
       UserMailer.send_activation_email(@user, generate_token).deliver_now
       flash[:success] = "Please check your email"
-      redirect_to root_path
+      redirect_to root_path and return
     else
       flash[:danger] = "Failed"
       render :new
