@@ -12,10 +12,12 @@
 
   <div class="form-group">
     <%= label_tag :password_confirmation, "Password confirmation" %>
-    <%= text_field_tag :password_confirmation, nil, class: "form-control", required: true %>
+    <%= text_field_tag :password_confirmation, type: "password", nil, class: "form-control", required: true %>
   </div>
 
   <%= hidden_field_tag :email, @user.email %>
 
-  <%= submit_tag "Reset password", class: "sign-in-btn" %>
+  <div class="form-group">
+    <%= submit_tag "Reset password", class: "sign-in-btn" %>
+  </div>
 <% end %>

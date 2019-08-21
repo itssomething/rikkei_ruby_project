@@ -64,7 +64,7 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   host = '0.0.0.0:3000' #replace with your own url
-  config.action_mailer.default_url_options = { host: host, protocol: 'https' }
+  config.action_mailer.default_url_options = { host: host, protocol: 'http' }
 
   # SMTP settings for gmail
   config.action_mailer.smtp_settings = {

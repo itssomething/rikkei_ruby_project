@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :check_logged_in, only: %i(new)
+
   def new
     @user = User.new
     render :new, layout: "session"
@@ -40,5 +42,10 @@ class UsersController < ApplicationController
 
   def generate_token
     SecureRandom.urlsafe_base64(nil, false)
+  end
+
+  def check_logged_in
+    return unless current_user.present?
+    redirect_to root_path and return
   end
 end

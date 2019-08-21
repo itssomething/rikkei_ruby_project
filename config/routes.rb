@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   post "/upload-exam-file", to: "files#upload_exam"
   get "/download_exam_template", to: "files#download_exam_template"
 
+  post "/resend-email", to: "user_activations#create"
+  
   match "/404", :to => "errors#not_found", :via => :all
   match "/500", :to => "errors#internal_server_error", :via => :all
 
