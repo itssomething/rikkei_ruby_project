@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_20_095312) do
+ActiveRecord::Schema.define(version: 2019_08_21_064451) do
 
   create_table "answers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "content"
@@ -95,6 +95,7 @@ ActiveRecord::Schema.define(version: 2019_08_20_095312) do
     t.datetime "reset_sent_at"
     t.boolean "activated"
     t.string "activation_token"
+    t.string "avatar"
   end
 
   add_foreign_key "answers", "questions"

@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   enum role: {user: 0, admin: 1}
 
+  mount_uploader :avatar, AvatarUploader
+  
   scope :score_leaderboard, -> do
     joins(:tests).includes(:tests).order(score: :desc)
   end

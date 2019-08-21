@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   get "/download_exam_template", to: "files#download_exam_template"
 
   post "/resend-email", to: "user_activations#create"
-  
+  post "/upload-avatar", to: "user_avatars#create"
   match "/404", :to => "errors#not_found", :via => :all
   match "/500", :to => "errors#internal_server_error", :via => :all
 

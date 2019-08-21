@@ -1047,3 +1047,20 @@ input[type="file"] {
     text-decoration: underline;
   }
 }
+
+.row {
+  display: flex
+}
+
+.col-50 {
+  width: 50%;
+}
+
+.file-test {
+  display: block !important;
+}
+
+.avatar {
+  width: 40px;
+  height: auto;
+}

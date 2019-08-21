@@ -26,6 +26,7 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 gem "roo", "~> 2.8.0"
 gem 'dotenv-rails'
+gem 'carrierwave', '~> 2.0'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
