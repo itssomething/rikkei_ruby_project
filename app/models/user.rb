@@ -3,6 +3,8 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  before_create :set_activation
+
   enum role: {user: 0, admin: 1}
 
   scope :score_leaderboard, -> do
@@ -17,4 +19,24 @@ class User < ApplicationRecord
   def reset_token_expired?
     Time.now - reset_sent_at > 20.minutes
   end
+
+  def activate
+    update_attributes activated: true
+  end
+
+  def deactivate
+    update_attributes activated: false
+  end
+
+  def activated?
+    activated == true
+  end
+
+  private
+
+  def set_activation
+    assign_attributes activated: false
+  end
+
+
 end

@@ -9,6 +9,7 @@ namespace :user_sample do
       user = User.create!(name: name, email: Faker::Internet.email(name: name),
         password: "123456", role: "user",
         created_at: rand(7.months.ago..Time.now))
+      user.activate
       puts "User #{user.name} created"
     end
   end

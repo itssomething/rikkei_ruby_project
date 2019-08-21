@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :randoms, except: [:index]
   resources :test_answers, only: [:index, :update]
   resources :password_resets
+  resources :user_activations, only: [:edit]
 
   get "/home", to: "randoms#index", as: "user_home"
   get "/admin", to: "statics#index"
@@ -21,6 +22,6 @@ Rails.application.routes.draw do
 
   match "/404", :to => "errors#not_found", :via => :all
   match "/500", :to => "errors#internal_server_error", :via => :all
-  
+
   root to: "randoms#index"
 end

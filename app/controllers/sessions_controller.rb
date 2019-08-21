@@ -41,4 +41,10 @@ class SessionsController < ApplicationController
   def password_param
     params[:password]
   end
+
+  def check_activation
+    return if @user.activated?
+    flash[:danger] = "Please check activate your account"
+    render :new
+  end
 end

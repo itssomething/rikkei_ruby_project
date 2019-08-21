@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def new
     @user = User.new
+    render :new, layout: "session"
   end
 
   def index
@@ -17,8 +18,10 @@ class UsersController < ApplicationController
     @user = User.new user_params
 
     if @user.save
-      flash[:success] = "User created"
-      redirect_to users_path
+      @user.update_attributes activation_token: generate_token
+      UserMailer.send_activation_email(@user, generate_token).deliver_now
+      flash[:success] = "Please check your email"
+      redirect_to root_path
     else
       flash[:danger] = "Failed"
       render :new
@@ -33,5 +36,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
+  end
+
+  def generate_token
+    SecureRandom.urlsafe_base64(nil, false)
   end
 end
