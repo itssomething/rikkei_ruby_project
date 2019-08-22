@@ -38,7 +38,7 @@ class PasswordResetsController < ApplicationController
     @user = User.find_by email: params[:email]
 
     return if @user.present?
-    flash[:danger] = "Email not exist"
+    flash.now[:danger] = "Email not exist"
     render :new
   end
 

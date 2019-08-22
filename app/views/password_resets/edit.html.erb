@@ -1,8 +1,6 @@
 <div class="sign-in-text">Reset password </div>
 
-<% flash.each do |message_type, message| %>
-  <div class="alert alert-<%= message_type %>"><%= message %></div>
-<% end %>
+<%= render "layouts/flash" %>
 
 <%= form_tag password_reset_path, id: "login-form", method: :patch do %>
   <div class="form-group">

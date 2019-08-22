@@ -1,7 +1,5 @@
 <div class="sign-in-text">Sign up </div>
-<% flash.each do |message_type, message| %>
-  <div class="alert alert-<%= message_type %>"><%= message %></div>
-<% end %>
+<%= render "layouts/flash" %>
 
 <%= form_for @user do |f| %>
   <div class="form-group">

@@ -73,6 +73,17 @@ $(document).ready(function() {
       console.log(answerArray);
     }
   });
+
+
+  $('body').on('click', '.btn-alert-close', function(){
+    $(this).slideUp().empty();
+  })
+
+  if($('.alert').length != 0){
+    setTimeout(function(){
+      $('.alert').slideUp().empty();
+    }, 3000)
+  }
 });
 
 window.onload = function(){
@@ -140,4 +151,5 @@ window.onload = function(){
       }
     }, 500);
   }
+
 }
