@@ -17,28 +17,31 @@
           <%= f.hidden_field :email %>
       </div>
       <div class="col-50">
+        <h4>General information</h4>
+
         <div class="form-group">
           <%= f.label :name, "Name" %>
-          <%= f.text_field :name, class: "form-control" %>
+          <%= f.text_field :name, class: "form-control", required: true %>
         </div>
 
         <div class="form-group">
           <%= f.label :email, "Email" %>
-          <%= f.text_field :email, class: "form-control" %>
+          <%= f.text_field :email, class: "form-control", required: true %>
         </div>
 
+        <h4>Password (leave blank if unchanged)</h4>
         <div class="form-group">
           <%= f.label :password, "Password" %>
-          <%= f.text_field :password, class: "form-control" %>
+          <%= f.password_field :password, class: "form-control" %>
         </div>
 
         <div class="form-group">
           <%= f.label :password_confirmation, "Password confirmation" %>
-          <%= f.text_field :password_confirmation, class: "form-control" %>
+          <%= f.password_field :password_confirmation, class: "form-control" %>
         </div>
       </div>
     </div>
-    <%= f.submit "Submit", disable_with: 'Submiting...', class: "sign-in-btn" %>
+    <%= f.button "Submit", class: "sign-in-btn", id: "edit_user_submit" %>
   <% end %>
 
   </div>

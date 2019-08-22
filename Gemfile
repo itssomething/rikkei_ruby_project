@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+git_source(:github) { |repo| 'https://github.com/#{repo}.git' }
 
 ruby '2.5.1'
 
@@ -24,7 +24,7 @@ gem 'kaminari'
 gem 'scout_apm'
 gem 'delayed_job_active_record'
 gem 'daemons'
-gem "roo", "~> 2.8.0"
+gem 'roo', '~> 2.8.0'
 gem 'dotenv-rails'
 gem 'carrierwave', '~> 2.0'
 
@@ -39,6 +39,10 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'
+end
+
+group :production do
+  gem 'pg', '0.20.0'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

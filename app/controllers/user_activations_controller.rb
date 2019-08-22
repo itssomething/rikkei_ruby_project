@@ -15,6 +15,10 @@ class UserActivationsController < ApplicationController
     login @user
   end
 
+  def update
+    
+  end
+
   private
 
   def find_user

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :randoms, except: [:index]
   resources :test_answers, only: [:index, :update]
   resources :password_resets
-  resources :user_activations, only: [:edit]
+  resources :user_activations, only: [:edit, :update]
 
   get "/home", to: "randoms#index", as: "user_home"
   get "/admin", to: "statics#index"
