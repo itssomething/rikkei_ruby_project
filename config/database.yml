@@ -24,5 +24,4 @@ test:
   database: rikkei_project_test
 
 production:
-  <<: *default
-  database: rikkei_project_production
+  url: <%= ENV['DATABASE_URL'] %>
