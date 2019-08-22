@@ -26,4 +26,4 @@ test:
 production:
   <<: *default
   adapter: mysql2
-  url: <%= ENV['CLEARDB_DATABASE_URL'] %>
+  url: <%= ENV['CLEARDB_MAUVE_URL'] %>

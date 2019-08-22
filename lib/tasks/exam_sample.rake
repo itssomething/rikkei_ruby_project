@@ -2,7 +2,7 @@ namespace :exam_sample do
   task exams: :environment do
     puts "Sample exams data"
     10.times do |n|
-      @exam = Exam.create!(name: Faker::Educator.course_name, category_id: rand(1..5), time: 20,
+      @exam = Exam.create!(name: Faker::Educator.course_name, category: Category.all.sample(1).first, time: 20,
         number_of_questions: 20)
       40.times do |m|
         puts "question #{m}"
