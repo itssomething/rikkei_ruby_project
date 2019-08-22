@@ -42,7 +42,6 @@ group :development do
 end
 
 group :production do
-  gem 'activerecord-mysql2-adapter'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
