@@ -1,0 +1,45 @@
+<div class="user-info-container">
+
+  <h1 class="text-center">Edit user information</h1>
+  <div id="#upload-avatar-modal"></div>
+
+  <%= form_for @user do |f| %>
+    <div class="row">
+        <div class="col-50 text-center">
+          <%= image_tag @user.avatar.url, class: "avatar" if @user.avatar.present? %>
+
+          <div class="mr-top-2em">
+            <%= f.label :avatar, "Choose file to Upload", class:"custom-file-upload" %>
+            <%= f.file_field :avatar, accept: "image/jpeg, image/gif, image/png, image/jpg" %>
+            <span id="file-name-span">No file chosen<span>
+          </div>
+          <%= f.hidden_field :email %>
+      </div>
+      <div class="col-50">
+        <div class="form-group">
+          <%= f.label :name, "Name" %>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :email, "Email" %>
+          <%= f.text_field :email, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password, "Password" %>
+          <%= f.text_field :password, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :password_confirmation, "Password confirmation" %>
+          <%= f.text_field :password_confirmation, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+    <%= f.submit "Submit", disable_with: 'Submiting...', class: "sign-in-btn" %>
+  <% end %>
+
+  </div>
+
+</div>

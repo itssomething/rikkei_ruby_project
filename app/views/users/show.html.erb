@@ -1,28 +1,23 @@
-<div class="container">
+<div class="user-info-container">
   <h1 class="text-center">User information</h1>
   <div id="#upload-avatar-modal"></div>
   <div class="row">
-    <div class="col-50">
-      <%= form_tag upload_avatar_path, multipart: true do %>
-        <%= image_tag @user.avatar.url, class: "avatar" if @user.avatar.present? %>
-        <label for="picture">Choose file to Upload</label>
-        <%= file_field_tag :picture, accept: "image/jpeg, image/gif, image/png, image/jpg", class: "file-test" %>
-        <span id="file-name-span">No file chosen<span>
-
-        <%= hidden_field_tag :email, @user.email %>
-        <%= submit_tag %>
-      <% end %>
+    <div class="col-50 text-center">
+      <%= image_tag @user.avatar.url, class: "avatar" if @user.avatar.present? %>
     </div>
     <div class="col-50">
       <div class="form-group">
         <%= label_tag :name, "Name" %>
         <%= text_field_tag :name, @user.name, class: "form-control", disabled: true %>
       </div>
+
       <div class="form-group">
         <%= label_tag :email, "Email" %>
         <%= text_field_tag :email, @user.email, class: "form-control", disabled: true %>
       </div>
     </div>
   </div>
+  <br>
+  <%= link_to "Edit info", edit_user_path, class: "btn float-right" %>
 
 </div>
