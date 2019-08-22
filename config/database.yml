@@ -24,4 +24,5 @@ test:
   database: rikkei_project_test
 
 production:
+  adapter: mysql2
   url: <%= ENV['DATABASE_URL'] %>
