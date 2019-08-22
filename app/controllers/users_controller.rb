@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :check_logged_in, only: %i(new)
-
+  before_action :find_user, only: %i(show edit update)
+  before_action :check_editable, only: :edit
   def new
     @user = User.new
     render :new, layout: "session"
@@ -31,16 +32,12 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by id: params[:id]
   end
 
   def edit
-    @user = User.find_by id: params[:id]
   end
 
   def update
-    @user = User.find_by id: params[:id]
-    
     if @user.update_attributes user_params
       flash[:success] = "User information updated"
       redirect_to user_path(@user)
@@ -52,6 +49,14 @@ class UsersController < ApplicationController
 
   private
 
+  def find_user
+    @user = User.find_by id: params[:id]
+
+    return if @user.present?
+    flash[:danger] = "User not found"
+    redirect_to root_path and return
+  end
+
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :avatar)
   end
@@ -62,6 +67,12 @@ class UsersController < ApplicationController
 
   def check_logged_in
     return unless current_user.present?
+    redirect_to root_path and return
+  end
+
+  def check_editable
+    return if current_user.admin? || @user == current_user
+    flash[:danger ] = "You are not authorized"
     redirect_to root_path and return
   end
 end

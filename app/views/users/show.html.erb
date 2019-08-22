@@ -3,7 +3,11 @@
   <div id="#upload-avatar-modal"></div>
   <div class="row">
     <div class="col-50 text-center">
-      <%= image_tag @user.avatar.url, class: "avatar" if @user.avatar.present? %>
+      <% if @user.avatar.present? %>
+        <%= image_tag @user.avatar.url, class: "avatar" %>
+      <% else %>
+        <%= image_tag "/default_avatar.jpg", class: "avatar" %>
+      <% end %>
     </div>
     <div class="col-50">
       <div class="form-group">

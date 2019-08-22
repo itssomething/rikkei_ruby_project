@@ -1076,3 +1076,19 @@ input[type="file"] {
 .mr-top-2em {
   margin-top: 2em;
 }
+
+#top-bar-ul li.ava-header {
+  // content: "";
+  border: 1px solid black;
+  border-radius: 50%;
+  padding: 0.1em ;
+  margin-top: 0.5em;
+}
+
+#top-bar-ul li.ava-header img {
+  object-fit: cover;
+  height: 1.7em;
+  width: 1.7em;
+  display: block;
+  border-radius: 50%;
+}
