@@ -32,5 +32,6 @@ module RikkeiProject
     # config.active_record.default_timezone = :local
     config.time_zone = "Hanoi"
     config.exceptions_app = self.routes
+    config.action_mailer.preview_path = "#{Rails.root}/test/mailers/previews"
   end
 end

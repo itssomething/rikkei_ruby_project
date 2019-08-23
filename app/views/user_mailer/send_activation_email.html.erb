@@ -4,15 +4,21 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Account activation</h1>
+    <div class="email-container">
+      <div class="logo">
+        <%= image_tag "https://i.imgur.com/giYBBJh.png" %>
+      </div>
+      <div class="content-area">
+        <h1>Account activation</h1>
+        <p>Hi <%= @user.name %>,</p>
 
-
-    <p>
-      Please click <%= link_to "this link", edit_user_activation_url(@user.activation_token, email: @user.email) %> activate your account
-    </p>
-    <p>
-
-    </p>
-
+        <p>Please click the button below to activate your account:</p>
+        <div class="text-center">
+          <%= link_to  edit_user_activation_url(@user.activation_token, email: @user.email) do %>
+            <button style="cursor: pointer;" class="btn">Reset Password</button>
+          <% end %>
+        <div>
+      </div>
+    </div>
   </body>
 </html>
