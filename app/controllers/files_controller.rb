@@ -17,7 +17,6 @@ class FilesController < ApplicationController
     end
 
     file = Roo::Spreadsheet.open(params[:file])
-    binding.pry
     sheet = file.sheet(0)
 
 
@@ -25,30 +24,38 @@ class FilesController < ApplicationController
       @exam = Exam.new name: params[:name], time: params[:time],
         number_of_questions: params[:number_of_questions],
         category_id: params[:category_id]
-      @exam.save!
-
       row_count = 2
-      question = Question.new exam: exam
+      question = @exam.questions.new(row: 2)
 
       while row_count <= sheet.last_row do
-
-        if sheet.row(row_count)[0].present?
-          question.save! if row_count > 2
-          question = Question.new exam: exam
-
+        if sheet.row(row_count)[0].present? && row_count > 2
+          if question.valid?
+            question.save
+          else
+            question.errors.messages.each do |key, value|
+              @exam_file.errors.add("row #{question.row}".to_sym, "question #{value[0]}")
+            end
+          end
+          question = @exam.questions.new
+          question.row = row_count
           question.name = sheet.row(row_count)[0]
           @answer = question.answers.new
           @answer.content = sheet.row(row_count)[1]
           @answer.is_correct = (sheet.row(row_count)[2].present? && sheet.row(row_count)[2].downcase == "true")
+
         else
+
           @answer = question.answers.new
           @answer.content = sheet.row(row_count)[1]
           @answer.is_correct = (sheet.row(row_count)[2].present? && sheet.row(row_count)[2].downcase == "true")
+
         end
         row_count += 1
       end
     end
-    redirect_to category_exam_path(params[:category_id], @exam) and return
+    if @exam.save!
+      redirect_to category_exam_path(params[:category_id], @exam) and return
+    end
   rescue ActiveRecord::RecordInvalid
     exam_file
     render :new

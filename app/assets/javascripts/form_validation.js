@@ -17,7 +17,7 @@ $(document).ready(function() {
           }
         });
       } else {
-        form.submit();
+        form.dispatchEvent(new Event('submit', {bubbles: true}));
       }
     }
   });
@@ -67,4 +67,31 @@ $(document).ready(function() {
       return false;
     }
   })
+
+  $('body').on('click', '#create-exam-btn', function(){
+
+  })
+
+  $('body').on('click', 'input[type="submit"]', function(e){
+    var form = document.getElementsByTagName('form')[0];
+    if(form != null){
+      e.preventDefault();
+
+      if(!form.checkValidity()){
+        $.each($('.question-form-control[required="required"]'), function(index, element) {
+          if($(element).val() == ''){
+            $(element).removeClass('with-errors');
+            $(element).nextAll('div.please-fill').remove();
+            $(element).addClass('with-errors');
+            $(element).after('<div class="please-fill">Please fill out this field</div>');
+          } else {
+            $(element).removeClass('with-errors');
+            $(element).nextAll('div.please-fill').remove();
+          }
+        });
+      } else {
+        form.submit();
+      }
+    }
+  });
 })

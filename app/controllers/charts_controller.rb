@@ -90,14 +90,12 @@ class ChartsController < ApplicationController
     end_date = params[:end].to_date
     data = {}
     number_of_days = end_date - start_date
-    # binding.pry
     if params[:step_type] == "day"
       counter = 0
       while(counter < number_of_days) do
         day = start_date + counter
         data["#{day}"] = nil
         arr = []
-        # binding.pry
         arr.push(Test.where(created_at: day.beginning_of_day..day.end_of_day, score: 0..10).count(:id),
           Test.where(created_at: day.beginning_of_day..day.end_of_day, score: 11..15).count(:id),
           Test.where(created_at: day.beginning_of_day..day.end_of_day, score: 16..20).count(:id))

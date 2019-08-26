@@ -1,6 +1,6 @@
 <div class="answer-li answer-field">
   <%= f.label :content %>
-  <%= f.text_field :content, class: "small-field width-80-percent" %>
+  <%= f.text_field :content, class: "small-field width-80-percent question-form-control", required: true %>
 
   <div class="checkbox" style="float: right">
     <%= f.check_box :is_correct, {}, 'true', 'false' %>

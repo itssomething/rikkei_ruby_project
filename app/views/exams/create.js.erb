@@ -1,0 +1,6 @@
+console.log('123');
+
+$('.question-field').each(function(index, ele) {
+  $($('.question-field')[index]).find('.error').html('<%= j render("question_error", content: @exam.errors.messages) %>');
+
+})

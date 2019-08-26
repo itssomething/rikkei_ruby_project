@@ -334,10 +334,11 @@ td {
 }
 
 .btn-danger {
-  background-color: #d64343;
+  background-color: #d64343 !important;
+  border: #d64343 !important;
 
   &:hover {
-    background-color: #c54040;
+    background-color: #c54040 !important;
   }
 }
 
@@ -1103,4 +1104,8 @@ input[type="file"] {
   width: 1.7em;
   display: block;
   border-radius: 50%;
+}
+
+.question-form-control.with-errors{
+  border: 2px solid #dc3545;
 }

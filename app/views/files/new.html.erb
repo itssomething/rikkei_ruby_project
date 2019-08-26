@@ -7,7 +7,9 @@
   <% if @exam_file.errors.present? %>
     <div class="error-field">
       <% @exam_file.errors.messages.each do |key, value| %>
-        <div><%= key.to_s.humanize %>&nbsp<%= value[0] %></div>
+        <% value.each do |v| %>
+          <div><%= key.to_s.humanize %>&nbsp<%= v %></div>
+        <% end %>
       <% end %>
     </div>
   <% end %>

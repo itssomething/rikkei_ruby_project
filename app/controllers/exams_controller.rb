@@ -8,7 +8,7 @@ class ExamsController < ApplicationController
   end
 
   def new
-    @exam = Exam.new category_id: params[:category_id]
+    @exam = Exam.new category_id: 1
     @category = Category.find_by id: params[:category_id]
     @questions = @exam.questions.build
     @answers = @questions.answers.build
@@ -16,11 +16,12 @@ class ExamsController < ApplicationController
 
   def create
     @exam = Exam.new exam_params
-
     if exam.save
       redirect_to category_exam_path(exam.category, exam) and return
     else
-      render :new and return
+      @category = Category.find_by id: params[:category_id]
+      @questions = @exam.questions
+      render :new
     end
   end
 
@@ -31,7 +32,6 @@ class ExamsController < ApplicationController
   def edit
     @category = Category.find_by id: params[:category_id]
     @questions = exam.questions
-
   end
 
   def update
@@ -70,7 +70,7 @@ class ExamsController < ApplicationController
 
   def exam_params
     params.require(:exam).permit(
-      :name, :number_of_questions, :time,
+      :name, :number_of_questions, :time, :category_id,
       :questions_attributes => [
         :id, :name, :_destroy, :answers_attributes => [
           :id, :content, :is_correct, :_destroy

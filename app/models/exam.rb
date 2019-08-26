@@ -14,4 +14,6 @@ class Exam < ApplicationRecord
   validates :name, presence: true
   validates :time, presence: true
   validates :number_of_questions, presence: :true
+
+  validates :questions, presence: true
 end
