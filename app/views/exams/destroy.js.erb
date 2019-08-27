@@ -1,4 +1,5 @@
 var nextEle = $('#exam-<%= @exam.id %>').next();
+console.log("<%= @exam.id %>");
 $('#exam-<%= @exam.id %>').hide('slow', function(){
   $('#exam-<%= @exam.id %>').remove();
   $('#popup-placeholder').html('<%= j render "layouts/popup", message: flash[flash.keys.first.to_sym] %>');

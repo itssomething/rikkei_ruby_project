@@ -35,9 +35,9 @@ class FileService
           question = @exam.questions.new
           question.row = row_count
           question.name = sheet.row(row_count)[0]
-          create_answer
+          build_answer(question, sheet, row_count)
         else
-          create_answer
+          build_answer(question, sheet, row_count)
         end
         row_count += 1
       end
@@ -48,7 +48,7 @@ class FileService
 
   attr_reader :params
 
-  def create_answer
+  def build_answer question, sheet, row_count
     @answer = question.answers.new
     @answer.content = sheet.row(row_count)[1]
     @answer.is_correct = (sheet.row(row_count)[2].present? && sheet.row(row_count)[2].downcase == "true")

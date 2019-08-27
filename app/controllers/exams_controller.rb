@@ -45,7 +45,7 @@ class ExamsController < ApplicationController
 
   def destroy
     if exam.destroy
-      flash[:success] = "Exam deleted"
+      flash.now[:success] = "Exam deleted"
       respond_to do |format|
         format.js
       end
