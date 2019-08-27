@@ -8,7 +8,7 @@ class Question < ApplicationRecord
   has_many :tests, through: :test_answers
 
   validates :answers, presence: true
-  validates :name, presence: true
+  validates :name, presence: true, length: {minimum: 10, maximum: 255}
   validate :minimum_correct
 
   accepts_nested_attributes_for :answers, allow_destroy: true,

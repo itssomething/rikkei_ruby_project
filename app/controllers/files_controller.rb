@@ -1,6 +1,8 @@
 class FilesController < ApplicationController
   include FileConcern
 
+  before_action :init_exam_file, only: :upload_exam
+  before_action :init_file_service, only: :upload_exam
   before_action :check_role
 
   def new
@@ -8,58 +10,14 @@ class FilesController < ApplicationController
   end
 
   def upload_exam
-    @exam_file = ExamFile.new name: params[:name], time: params[:time],
-      number_of_questions: params[:number_of_questions],
-      category_id: params[:category_id], file: params[:file]
-
-    if !@exam_file.valid?
-      raise ActiveRecord::RecordInvalid
-    end
-
-    file = Roo::Spreadsheet.open(params[:file])
-    sheet = file.sheet(0)
-
-
-    ActiveRecord::Base.transaction(requires_new: true) do
-      @exam = Exam.new name: params[:name], time: params[:time],
-        number_of_questions: params[:number_of_questions],
-        category_id: params[:category_id]
-      row_count = 2
-      question = @exam.questions.new(row: 2)
-
-      while row_count <= sheet.last_row do
-        if sheet.row(row_count)[0].present? && row_count > 2
-          if question.valid?
-            question.save
-          else
-            question.errors.messages.each do |key, value|
-              value.each do |v|
-                @exam_file.errors.add("row #{question.row}".to_sym, "Question #{key} #{v}")
-              end
-            end
-          end
-          question = @exam.questions.new
-          question.row = row_count
-          question.name = sheet.row(row_count)[0]
-          @answer = question.answers.new
-          @answer.content = sheet.row(row_count)[1]
-          @answer.is_correct = (sheet.row(row_count)[2].present? && sheet.row(row_count)[2].downcase == "true")
-
-        else
-
-          @answer = question.answers.new
-          @answer.content = sheet.row(row_count)[1]
-          @answer.is_correct = (sheet.row(row_count)[2].present? && sheet.row(row_count)[2].downcase == "true")
-
-        end
-        row_count += 1
-      end
-    end
-    if @exam.save!
+    raise ActiveRecord::RecordInvalid unless @exam_file.valid?
+    file_service.create_exam_from_file
+    
+    if file_service.exam.save!
       redirect_to category_exam_path(params[:category_id], @exam) and return
     end
   rescue ActiveRecord::RecordInvalid
-    exam_file
+    file_service.exam_file
     render :new
   end
 
@@ -73,9 +31,19 @@ class FilesController < ApplicationController
 
   private
 
-  attr_reader :exam_file, :exam
+  attr_reader :exam_file, :exam, :file_service
 
   def file_valid?
     valid_exam_extension.include? params[:file].content_type.split("/").last
+  end
+
+  def init_exam_file
+    @exam_file = ExamFile.new name: params[:name], time: params[:time],
+      number_of_questions: params[:number_of_questions],
+      category_id: params[:category_id], file: params[:file]
+  end
+
+  def init_file_service
+    @file_service = FileService.new exam_file, params
   end
 end
