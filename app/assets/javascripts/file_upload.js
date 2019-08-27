@@ -5,10 +5,15 @@ $(document).ready(function() {
 
   $('body').on('click', '#upload-exam-csv', function(e) {
     e.preventDefault();
+    var element = $('input#file')[0];
+    var parentElement = $($('input#file')[0]).parent();
     if($('input#file')[0].files.length == 1) {
       $('form').submit();
     } else {
-      alert("Please choose a file to upload");
+      $(element).removeClass('with-errors');
+      $(element).nextAll('div.please-fill-file').remove();
+      $(element).addClass('with-errors');
+      $(parentElement).append('<div class="please-fill-file">Please choose a file</div>');
     }
   });
 

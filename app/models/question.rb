@@ -34,6 +34,6 @@ class Question < ApplicationRecord
 
   def minimum_correct
     return if self.answers.map(&:is_correct).include? true
-    errors.add(:base, "must have at least one correct answer")
+    errors.add(:answers, "must have at least one correct answer")
   end
 end

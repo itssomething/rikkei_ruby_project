@@ -8,7 +8,7 @@
     <div class="error-field">
       <% @exam_file.errors.messages.each do |key, value| %>
         <% value.each do |v| %>
-          <div><%= key.to_s.humanize %>&nbsp<%= v %></div>
+          <div>Error at <%= key.to_s.humanize.downcase %>:&nbsp<%= v.split(".").join(" ") %></div>
         <% end %>
       <% end %>
     </div>
@@ -22,23 +22,23 @@
 
     <div class="form-group <%= "with-error" if @exam_file.errors.messages[:name].present? %>">
       <%= label_tag :name, "Name" %>
-      <%= text_field_tag :name, @exam_file.name || nil, class: "form-control" %>
+      <%= text_field_tag :name, @exam_file.name || nil, class: "form-control", required: true %>
     </div>
 
     <div class="form-group <%= "with-error" if @exam_file.errors.messages[:name].present? %>">
       <%= label_tag :time, "Time" %>
-      <%= number_field_tag :time, @exam_file.time || nil, min: 0, class: "form-control" %>
+      <%= number_field_tag :time, @exam_file.time || nil, min: 0, class: "form-control", required: true %>
     </div>
 
     <div class="form-group <%= "with-error" if @exam_file.errors.messages[:name].present? %>">
       <%= label_tag :number_of_questions, "Number of question when generate test" %>
-      <%= number_field_tag :number_of_questions, @exam_file.number_of_questions || nil, min: 0, class: "form-control" %>
+      <%= number_field_tag :number_of_questions, @exam_file.number_of_questions || nil, min: 0, class: "form-control", required: true %>
     </div>
 
     <div class="form-group">
       <h4>Questions data</h4>
       <label for="file" class="custom-file-upload">Choose file to Upload</label>
-      <%= file_field_tag "file" %>
+      <%= file_field_tag "file", required: true %>
       <span id="file-name-span">No file chosen<span>
     </div>
     <div class="form-group">

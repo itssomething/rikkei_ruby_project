@@ -33,7 +33,9 @@ class FilesController < ApplicationController
             question.save
           else
             question.errors.messages.each do |key, value|
-              @exam_file.errors.add("row #{question.row}".to_sym, "question #{value[0]}")
+              value.each do |v|
+                @exam_file.errors.add("row #{question.row}".to_sym, "Question #{key} #{v}")
+              end
             end
           end
           question = @exam.questions.new
