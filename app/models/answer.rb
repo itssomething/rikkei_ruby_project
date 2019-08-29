@@ -4,7 +4,7 @@ class Answer < ApplicationRecord
   belongs_to :question
 
   validates :content, presence: :true
-  validates :content, length: {minimum: 8, maximum: 100}
+  validates :content, length: {minimum: 8, maximum: 255}
 
   def is_correct?
     is_correct
