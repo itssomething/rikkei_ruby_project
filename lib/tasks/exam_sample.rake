@@ -17,7 +17,7 @@ namespace :exam_sample do
 
             2.times do |k|
               @answer = @question.answers.new(content: Faker::Lorem.sentence(word_count: 9),
-                is_correct: true, question_id: @question.id)
+                is_correct: false, question_id: @question.id)
             end
           else
             @answer = @question.answers.new(content: Faker::Lorem.sentence(word_count: 9),
