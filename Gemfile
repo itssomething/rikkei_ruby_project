@@ -26,7 +26,7 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'roo', '~> 2.8.0'
 gem 'dotenv-rails'
-gem 'carrierwave', '~> 2.0'
+gem 'carrierwave', '~> 2.1'
 gem 'premailer-rails'
 gem 'nokogiri'
 
